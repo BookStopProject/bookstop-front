@@ -1,0 +1,38 @@
+fragment UserBookParts on UserBook {
+  id
+  book {
+    ...BookParts
+  }
+  bookId
+  userId
+  startedAt
+  endedAt
+}
+
+query userBook($id: ID!) {
+  userBook(id: $id) {
+    ...UserBookParts
+  }
+}
+
+query userBooks($userId: ID, $mine: Boolean) {
+  userBooks(userId: $userId, mine: $mine) {
+    ...UserBookParts
+  }
+}
+
+mutation userBookAdd($bookId: ID!, $startedAt: String, $endedAt: String) {
+  userBookAdd(bookId: $bookId, startedAt: $startedAt, endedAt: $endedAt) {
+    ...UserBookParts
+  }
+}
+
+mutation userBookEdit($id: ID!, $startedAt: String, $endedAt: String) {
+  userBookEdit(id: $id, startedAt: $startedAt, endedAt: $endedAt) {
+    ...UserBookParts
+  }
+}
+
+mutation userBookDelete($id: ID!) {
+  userBookDelete(id: $id)
+}

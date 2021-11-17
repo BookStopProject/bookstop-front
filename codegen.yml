@@ -1,0 +1,14 @@
+schema: http://localhost:8080/graphql
+documents: "./src/graphql/schema/*.graphql"
+generates:
+  ./src/graphql/gql.gen.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-urql
+      - typescript-urql-graphcache
+    config:
+      withComponent: false
+      withHooks: true
+      documentMode: "documentNode"
+      skipTypeNameForRoot: true

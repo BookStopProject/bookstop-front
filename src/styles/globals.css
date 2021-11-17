@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .aspect-regular {
+    position: relative;
+    padding-bottom: 160%;
+  }
+  .aspect-regular > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+body {
+  @apply font-sans;
+}
+
+html {
+  @apply bg-background text-foreground;
+}
+
+[data-reach-menu-list] {
+  background: theme("colors.background-secondary") !important;
+  padding: 0.5rem !important;
+  margin-top: 4px;
+  @apply rounded-lg;
+}
+
+[data-reach-menu-item][data-selected] {
+  background: transparent !important;
+  color: theme("colors.primary") !important;
+}
+
+[data-reach-dialog-content] {
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  [data-reach-dialog-content] {
+    width: 90vw !important;
+  }
+}

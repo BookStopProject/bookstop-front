@@ -1,0 +1,25 @@
+fragment UserParts on User {
+  id
+  name
+  description
+  profileImageUrl
+  createdAt
+}
+
+query me {
+  me {
+    ...UserParts
+  }
+}
+
+mutation meUpdate($name: String, $description: String) {
+  meUpdate(name: $name, description: $description) {
+    ...UserParts
+  }
+}
+
+query user($id: ID!) {
+  user(id: $id) {
+    ...UserParts
+  }
+}
