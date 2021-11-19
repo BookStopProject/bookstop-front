@@ -1,16 +1,10 @@
 import { Avatar } from "@/components/Avatar";
 import type { UserBook } from "@/graphql/gql.gen";
-import { useUserQuery } from "@/graphql/gql.gen";
 import Link from "next/link";
 import type { FC } from "react";
 
 const BookInfo: FC<{ userBook: UserBook }> = ({ userBook }) => {
   const book = userBook.book;
-  const [{ data: dataUser }] = useUserQuery({
-    variables: {
-      id: userBook.userId,
-    },
-  });
   return (
     <div className="container flex flex-col py-4 px-2 mx-auto max-w-6xl">
       <div className="mx-auto w-48">
@@ -24,23 +18,23 @@ const BookInfo: FC<{ userBook: UserBook }> = ({ userBook }) => {
       </div>
       <header className="pt-4 text-center">
         <Link href={`/user/${userBook.userId}`}>
-          <a className="flex justify-center items-center h-10">
-            {dataUser?.user && (
-              <>
-                <Avatar
-                  size={6}
-                  src={dataUser.user.profileImageUrl}
-                  username={dataUser.user.name}
-                />
-                <span className="ml-2">
-                  {dataUser.user.name}
-                  <span className="opacity-75">{"'s"}</span>
-                </span>
-              </>
-            )}
+          <a className="flex justify-center items-center">
+            <Avatar
+              size={6}
+              src={userBook.user.profileImageUrl}
+              username={userBook.user.name}
+            />
+            <span className="ml-1">
+              {userBook.user.name}
+              <span className="opacity-75">{"'s"}</span>
+            </span>
           </a>
         </Link>
-        <h1 className="font-serif text-3xl mb-1.5">{book.title}</h1>
+        <Link href={`/book/${book.id}`}>
+          <a>
+            <h1 className="font-serif text-3xl mb-1.5">{book.title}</h1>
+          </a>
+        </Link>
         <div className="text-opacity-75 text-foreground">
           {book.authors.join(", ")}
         </div>

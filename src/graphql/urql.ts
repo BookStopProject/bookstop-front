@@ -49,6 +49,11 @@ export function newClient() {
               return new Date(createdAt);
             },
           },
+          InventoryClaim: {
+            claimedAt({ claimedAt }) {
+              return new Date(claimedAt);
+            },
+          },
         },
         updates: {
           Mutation: {
@@ -62,6 +67,17 @@ export function newClient() {
             },
             userBookDelete(parent, args, cache) {
               cache.invalidate({ __typename: "UserBook", id: args.id });
+            },
+            inventoryClaimDo(parent, args, cache) {
+              cache.invalidate("Query", "me");
+              if (parent.inventoryClaimDo.inventory) {
+                cache.invalidate("Query", "inventories", {
+                  bookId: parent.inventoryClaimDo.inventory.userBook.bookId,
+                });
+                cache.invalidate("Query", "inventories", {
+                  locationId: parent.inventoryClaimDo.inventory.locationId,
+                });
+              }
             },
           },
         },

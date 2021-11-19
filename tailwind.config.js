@@ -23,6 +23,10 @@ module.exports = {
       danger: "#FF1A1A",
       "danger-dark": "#e00",
       "danger-text": "#fff",
+      highlight: "#90909026",
+      success: "#0070F3",
+      "success-dark": "#0761D1",
+      "success-text": "#fff",
     },
     container: {
       center: true,

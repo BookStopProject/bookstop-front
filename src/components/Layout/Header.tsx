@@ -1,9 +1,16 @@
 import IconZap from "@/assets/icons/zap.svg";
 import logo from "@/assets/logo-text.png";
 import CONFIG from "@/config";
+import { PARAM_AUTH_SIGNOUT } from "@/graphql/authHook";
 import { useMeQuery } from "@/graphql/gql.gen";
 import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
-import { IconBook, IconCalendarEvent, IconHome } from "@tabler/icons";
+import {
+  IconBook,
+  IconCalendarEvent,
+  IconCoin,
+  IconHome,
+  IconReceipt,
+} from "@tabler/icons";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,31 +60,45 @@ const Auth: FC = () => {
   };
   const router = useRouter();
   const signOut = () => {
-    router.replace(router.pathname + "?auth_signout=1", undefined, {
-      shallow: true,
-    });
+    const tempUrl = new URL(window.location.href);
+    tempUrl.searchParams.set(PARAM_AUTH_SIGNOUT, "1");
+    window.location.replace(tempUrl);
   };
 
   if (data?.me) {
     return (
-      <Menu>
-        <MenuButton>
-          <Avatar
-            size={10}
-            src={data.me.profileImageUrl}
-            username={data.me.name}
-          />
-        </MenuButton>
-        <MenuList>
-          <MenuItem onSelect={() => router.push(`/user/${data.me!.id}`)}>
-            Profile
-          </MenuItem>
-          <MenuItem onSelect={() => router.push("/settings")}>
-            Settings
-          </MenuItem>
-          <MenuItem onSelect={signOut}>Sign out</MenuItem>
-        </MenuList>
-      </Menu>
+      <div className="flex items-center space-x-2">
+        <Link href="/my-exchange">
+          <a className="flex justify-center items-center w-10 h-10 rounded-full bg-highlight">
+            <IconReceipt />
+          </a>
+        </Link>
+        <div className="flex items-center py-2 px-4 bg-opacity-25 rounded-full bg-primary text-primary-dark">
+          <IconCoin />
+          <span className="ml-1 font-bold">{data.me.credit}</span>
+        </div>
+        <Menu>
+          <MenuButton>
+            <Avatar
+              size={10}
+              src={data.me.profileImageUrl}
+              username={data.me.name}
+            />
+          </MenuButton>
+          <MenuList>
+            <MenuItem onSelect={() => router.push(`/user/${data.me!.id}`)}>
+              Profile
+            </MenuItem>
+            <MenuItem onSelect={() => router.push("/my-exchange")}>
+              Exchanges
+            </MenuItem>
+            <MenuItem onSelect={() => router.push("/settings")}>
+              Settings
+            </MenuItem>
+            <MenuItem onSelect={signOut}>Sign out</MenuItem>
+          </MenuList>
+        </Menu>
+      </div>
     );
   }
 

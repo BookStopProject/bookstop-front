@@ -1,6 +1,6 @@
 import { IconLoader } from "@tabler/icons";
 import clsx from "clsx";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 
 interface ButtonProps {
   variant?: "filled" | "ghost";
@@ -8,7 +8,9 @@ interface ButtonProps {
   onClick?(): void;
   className?: string;
   fetching?: boolean;
+  disabled?: boolean;
   color?: "primary" | "danger";
+  left?: ReactNode;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -18,7 +20,9 @@ const Button: FC<ButtonProps> = ({
   className,
   onClick,
   fetching,
+  disabled,
   color = "primary",
+  left,
 }) => {
   return (
     <button
@@ -43,12 +47,14 @@ const Button: FC<ButtonProps> = ({
         className
       )}
       onClick={onClick}
-      disabled={fetching}
+      disabled={fetching || disabled}
     >
-      {fetching && (
+      {fetching ? (
         <span className="animate-spin">
           <IconLoader />
         </span>
+      ) : (
+        left
       )}
       <span>{children}</span>
     </button>

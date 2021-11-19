@@ -1,10 +1,13 @@
 fragment UserBookParts on UserBook {
   id
+  bookId
   book {
     ...BookParts
   }
-  bookId
   userId
+  user {
+    ...UserParts
+  }
   startedAt
   endedAt
 }

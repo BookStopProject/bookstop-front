@@ -1,0 +1,12 @@
+fragment LocationParts on Location {
+  id
+  name
+  parentName
+  addressLine
+}
+
+query locations {
+  locations {
+    ...LocationParts
+  }
+}
