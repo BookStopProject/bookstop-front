@@ -10,7 +10,7 @@ const InventoryClaimItem: FC<{
 }> = ({ claim, onSelect }) => {
   return (
     <button
-      onClick={() => onSelect(claim)}
+      onClick={() => !claim.inventory.removed && onSelect(claim)}
       className="flex p-1 text-left bg-transparent rounded hover:bg-highlight"
     >
       <div className="w-20">

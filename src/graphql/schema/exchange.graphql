@@ -1,0 +1,14 @@
+query exchanges($userBookId: ID!) {
+  exchanges(userBookId: $userBookId) {
+    id
+    userBookIdOld
+    userBookOld {
+      ...UserBookParts
+    }
+    userBookIdNew
+    userBookNew {
+      ...UserBookParts
+    }
+    exchangedAt
+  }
+}

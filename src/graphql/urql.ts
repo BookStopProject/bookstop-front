@@ -54,6 +54,11 @@ export function newClient() {
               return new Date(claimedAt);
             },
           },
+          Exchange: {
+            exchangedAt({ exchangedAt }) {
+              return new Date(exchangedAt);
+            },
+          },
         },
         updates: {
           Mutation: {

@@ -74,7 +74,7 @@ const BookExchangerContent: FC<Pick<BookExchangerProps, "book" | "onDismiss">> =
             `Successully exchanged ${inventory.userBook.book.title} at ${inventory.location.name}`
           );
           onDismiss();
-          router.push(`/my-exchanges/${result.data?.inventoryClaimDo.id}`);
+          router.push(`/my-exchange/${result.data?.inventoryClaimDo.id}`);
         }
       },
       [onDismiss, claimDo, router]
