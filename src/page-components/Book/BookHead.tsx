@@ -1,12 +1,11 @@
-import { Modal } from "@/components/Modal";
+import { Modal, useModal } from "@/components/Modal";
 import type { Book } from "@/graphql/gql.gen";
 import type { FC } from "react";
-import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import BookActions from "./Actions";
+import BookActions from "./BookActions";
 
 const BookDescription: FC<{ book: Book }> = ({ book }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [visible, present, dismiss] = useModal();
   return (
     <>
       <div className="overflow-hidden relative max-h-48">
@@ -14,16 +13,12 @@ const BookDescription: FC<{ book: Book }> = ({ book }) => {
           <ReactMarkdown>{book.description}</ReactMarkdown>
         </div>
         <div className="absolute bottom-0 py-4 w-full text-center bg-gradient-to-t to-transparent from-background via-background">
-          <button onClick={() => setExpanded(true)} className="hover:underline">
+          <button onClick={present} className="hover:underline">
             Read more
           </button>
         </div>
       </div>
-      <Modal
-        visible={expanded}
-        title={book.title}
-        onDismiss={() => setExpanded(false)}
-      >
+      <Modal visible={visible} title={book.title} onDismiss={dismiss}>
         <ReactMarkdown className="font-serif">{book.description}</ReactMarkdown>
       </Modal>
     </>

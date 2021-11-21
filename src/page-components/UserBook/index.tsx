@@ -1,8 +1,8 @@
 import type { UserBook } from "@/graphql/gql.gen";
 import { useMeQuery } from "@/graphql/gql.gen";
 import type { FC } from "react";
-import UserBookActions from "./Actions";
 import BookInfo from "./BookInfo";
+import UserBookActions from "./UserBookActions";
 import UserBookDates from "./UserBookDates";
 import UserBookTimeline from "./UserBookTimeline";
 

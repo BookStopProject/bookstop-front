@@ -3,14 +3,19 @@ import type { InventoryClaim } from "@/graphql/gql.gen";
 import { useInventoryClaimsMineQuery } from "@/graphql/gql.gen";
 import { IconCheck, IconLoader, IconPoint } from "@tabler/icons";
 import type { FC } from "react";
+import { useMemo } from "react";
 
 const InventoryClaimItem: FC<{
   claim: InventoryClaim;
   onSelect(inventoryClaim: InventoryClaim): void;
 }> = ({ claim, onSelect }) => {
+  const onClick = useMemo(
+    () => (!claim.inventory.removed ? () => onSelect(claim) : undefined),
+    [claim, onSelect]
+  );
   return (
     <button
-      onClick={() => !claim.inventory.removed && onSelect(claim)}
+      onClick={onClick}
       className="flex p-1 text-left bg-transparent rounded hover:bg-highlight"
     >
       <div className="w-20">

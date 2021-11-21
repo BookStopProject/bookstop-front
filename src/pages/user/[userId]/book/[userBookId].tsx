@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<
       query: print(UserBookDocument),
       variables: { id: userBookId },
     }),
-  }).then((response) => response.json());
+  }).then((r) => r.json());
   const userBook: UserBook | null = response.data.userBook;
   if (!userBook)
     return {

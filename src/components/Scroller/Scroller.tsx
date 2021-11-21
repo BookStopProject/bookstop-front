@@ -1,7 +1,7 @@
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 import clsx from "clsx";
 import type { FC } from "react";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 interface ScrollerProps {
   className?: string;
@@ -35,7 +35,7 @@ const Scroller: FC<ScrollerProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [posState, setPosState] = useState<-1 | 0 | 1>(-1);
-  const scroll = (toRight: boolean) => {
+  const scroll = useCallback((toRight: boolean) => {
     const node = ref.current;
     if (!node) return;
     const offset = node.offsetWidth;
@@ -51,14 +51,20 @@ const Scroller: FC<ScrollerProps> = ({
       left: dest,
       behavior: "smooth",
     });
-  };
+  }, []);
+  const scrollLeft = useCallback(() => {
+    scroll(false);
+  }, [scroll]);
+  const scrollRight = useCallback(() => {
+    scroll(true);
+  }, [scroll]);
   return (
     <div className={clsx("relative md:px-12", className)}>
       {posState !== -1 && (
-        <ChevronButton position="left" onClick={() => scroll(false)} />
+        <ChevronButton position="left" onClick={scrollLeft} />
       )}
       {posState !== 1 && (
-        <ChevronButton position="right" onClick={() => scroll(true)} />
+        <ChevronButton position="right" onClick={scrollRight} />
       )}
       <div
         className={clsx(

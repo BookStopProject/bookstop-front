@@ -13,7 +13,7 @@ const SearchResult: FC = () => {
   const router = useRouter();
   const query = (String(router.query.q) || "").trim();
   const [skip, setSkip] = useState(0);
-  const loadMore = useCallback(() => setSkip((skip) => skip + LIMIT + 1), []);
+  const loadMore = useCallback(() => setSkip((sk) => sk + LIMIT + 1), []);
   const [{ data, fetching }] = useSearchQuery({
     variables: { query, limit: LIMIT, skip },
     pause: !query,

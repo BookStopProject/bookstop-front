@@ -3,7 +3,7 @@ import { PageTitle } from "@/components/Typography";
 import { useMeQuery } from "@/graphql/gql.gen";
 import { IconLoader } from "@tabler/icons";
 import type { FC } from "react";
-import UserBookList from "./UserBooksList";
+import UserBookList from "./UserBookList";
 
 const MyLibraryPage: FC = () => {
   const [{ data, fetching }] = useMeQuery();
@@ -11,7 +11,7 @@ const MyLibraryPage: FC = () => {
     <div className="container">
       <PageTitle>My Library</PageTitle>
       {fetching ? (
-        <IconLoader className="animate-spin mx-auto" />
+        <IconLoader className="mx-auto animate-spin" />
       ) : data?.me ? (
         <UserBookList />
       ) : (

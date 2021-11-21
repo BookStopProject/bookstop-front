@@ -2,7 +2,7 @@ import { ThoughtFeed } from "@/components/ThoughtFeed";
 import type { User } from "@/graphql/gql.gen";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@reach/tabs";
 import type { FC } from "react";
-import UserBookList from "./UserBooksList";
+import UserBookList from "./UserBookList";
 import UserInfo from "./UserInfo";
 
 const UserPage: FC<{ user: User }> = ({ user }) => {

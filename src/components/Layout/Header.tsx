@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC, ReactNode } from "react";
+import { useCallback } from "react";
 import { Avatar } from "../Avatar";
 import { Button } from "../Button";
 
@@ -55,15 +56,15 @@ const Tabs: FC = () => {
 const Auth: FC = () => {
   const [{ data }] = useMeQuery();
 
-  const signIn = () => {
+  const signIn = useCallback(() => {
     window.location.href = `${CONFIG.API_URI}/auth?redirect_url=${window.location.pathname}`;
-  };
+  }, []);
   const router = useRouter();
-  const signOut = () => {
+  const signOut = useCallback(() => {
     const tempUrl = new URL(window.location.href);
     tempUrl.searchParams.set(PARAM_AUTH_SIGNOUT, "1");
     window.location.replace(tempUrl);
-  };
+  }, []);
 
   if (data?.me) {
     return (

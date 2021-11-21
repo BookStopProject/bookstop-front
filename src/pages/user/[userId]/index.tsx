@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps<PageProps, { userId: string }> =
         query: print(UserDocument),
         variables: { id: userId },
       }),
-    }).then((response) => response.json());
+    }).then((r) => r.json());
     const user = response.data.user;
     if (!user)
       return {

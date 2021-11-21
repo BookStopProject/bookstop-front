@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps<PageProps, { bookId: string }> =
         query: print(BookDocument),
         variables: { id: bookId },
       }),
-    }).then((response) => response.json());
+    }).then((r) => r.json());
     const book = response.data.book;
     if (!book)
       return {

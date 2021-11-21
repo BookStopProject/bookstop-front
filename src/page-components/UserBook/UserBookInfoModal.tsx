@@ -3,13 +3,13 @@ import type { UserBook } from "@/graphql/gql.gen";
 import type { FC } from "react";
 import QRCode from "react-qr-code";
 
-interface UserBookInfoModal {
+interface UserBookInfoModalProps {
   userBook: UserBook;
   visible: boolean;
   onDismiss(): void;
 }
 
-const UserBookInfoModal: FC<UserBookInfoModal> = ({
+const UserBookInfoModal: FC<UserBookInfoModalProps> = ({
   userBook,
   visible,
   onDismiss,
