@@ -43,6 +43,11 @@ export function newClient() {
               limitArgument: "limit",
               offsetArgument: "skip",
             }),
+            thoughts: simplePagination({
+              mergeMode: "before",
+              limitArgument: "limit",
+              offsetArgument: "before",
+            }),
           },
           User: {
             createdAt({ createdAt }) {
@@ -57,6 +62,11 @@ export function newClient() {
           Exchange: {
             exchangedAt({ exchangedAt }) {
               return new Date(exchangedAt);
+            },
+          },
+          Thought: {
+            createdAt({ createdAt }) {
+              return new Date(createdAt);
             },
           },
         },
@@ -83,6 +93,9 @@ export function newClient() {
                   locationId: parent.inventoryClaimDo.inventory.locationId,
                 });
               }
+            },
+            thoughtCreate(parent, args, cache) {
+              cache.invalidate("Query", "thoughts");
             },
           },
         },

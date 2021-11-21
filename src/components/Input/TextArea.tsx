@@ -1,27 +1,21 @@
 import clsx from "clsx";
-import type {
-  ChangeEventHandler,
-  HTMLInputTypeAttribute,
-  ReactNode,
-} from "react";
+import type { ChangeEventHandler, ReactNode } from "react";
 import { forwardRef } from "react";
 
-interface InputProps {
+interface TextAreaProps {
   placeholder?: string;
   left?: ReactNode;
   right?: ReactNode;
   label?: string;
   rounded?: boolean;
   className?: string;
-  htmlType?: HTMLInputTypeAttribute;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
   value?: string;
-  min?: string;
-  max?: string;
-  required?: boolean;
+  maxLength?: number;
+  rows: number;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function Input(
   {
     left,
     right,
@@ -29,12 +23,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     placeholder,
     label,
     className,
-    htmlType,
     onChange,
     value,
-    min,
-    max,
-    required,
+    maxLength,
+    rows,
   },
   ref
 ) {
@@ -43,21 +35,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       {label && <span>{label}</span>}
       <div
         className={clsx(
-          "flex items-center px-3 space-x-2 h-10 bg-control",
+          "flex items-center py-2 px-3 space-x-2 bg-control",
           rounded ? "rounded-full" : "rounded"
         )}
       >
         {left && <span>{left}</span>}
-        <input
-          min={min}
-          max={max}
+        <textarea
+          maxLength={maxLength}
           value={value}
           onChange={onChange}
-          type={htmlType}
           ref={ref}
           placeholder={placeholder}
           className="placeholder-[#B4ADA9] flex-1 h-full bg-transparent focus:outline-none"
-          required={required}
+          rows={rows}
         />
         {right && <span>{right}</span>}
       </div>
@@ -65,4 +55,4 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   );
 });
 
-export default Input;
+export default TextArea;

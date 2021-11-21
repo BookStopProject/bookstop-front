@@ -80,6 +80,8 @@ export type Mutation = {
   foo?: Maybe<Scalars['Int']>;
   inventoryClaimDo: InventoryClaim;
   meUpdate?: Maybe<User>;
+  thoughtCreate: Thought;
+  thoughtDelete: Scalars['Boolean'];
   userBookAdd: UserBook;
   userBookDelete: Scalars['Boolean'];
   userBookEdit: UserBook;
@@ -94,6 +96,17 @@ export type MutationInventoryClaimDoArgs = {
 export type MutationMeUpdateArgs = {
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationThoughtCreateArgs = {
+  bookId?: Maybe<Scalars['ID']>;
+  text: Scalars['String'];
+};
+
+
+export type MutationThoughtDeleteArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -130,6 +143,7 @@ export type Query = {
   locations: Array<Location>;
   me?: Maybe<User>;
   search: Array<Book>;
+  thoughts: Array<Thought>;
   user?: Maybe<User>;
   userBook?: Maybe<UserBook>;
   userBooks: Array<UserBook>;
@@ -179,6 +193,13 @@ export type QuerySearchArgs = {
 };
 
 
+export type QueryThoughtsArgs = {
+  before?: Maybe<Scalars['Int']>;
+  limit: Scalars['Int'];
+  userId?: Maybe<Scalars['ID']>;
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['ID'];
 };
@@ -192,6 +213,17 @@ export type QueryUserBookArgs = {
 export type QueryUserBooksArgs = {
   mine?: Maybe<Scalars['Boolean']>;
   userId?: Maybe<Scalars['ID']>;
+};
+
+export type Thought = {
+  __typename?: 'Thought';
+  book?: Maybe<Book>;
+  bookId?: Maybe<Scalars['ID']>;
+  createdAt: Scalars['Time'];
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  user: User;
+  userId: Scalars['ID'];
 };
 
 export type User = {
@@ -307,6 +339,32 @@ export type LocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type LocationsQuery = { locations: Array<{ __typename?: 'Location', id: string, name: string, parentName?: string | null | undefined, addressLine: string }> };
 
+export type ThoughtPartsFragment = { __typename?: 'Thought', id: string, text: string, createdAt: any, userId: string, bookId?: string | null | undefined, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any }, book?: { __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined } | null | undefined };
+
+export type ThoughtsQueryVariables = Exact<{
+  userId?: Maybe<Scalars['ID']>;
+  limit: Scalars['Int'];
+  before?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type ThoughtsQuery = { thoughts: Array<{ __typename?: 'Thought', id: string, text: string, createdAt: any, userId: string, bookId?: string | null | undefined, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any }, book?: { __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined } | null | undefined }> };
+
+export type ThoughtCreateMutationVariables = Exact<{
+  text: Scalars['String'];
+  bookId?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type ThoughtCreateMutation = { thoughtCreate: { __typename?: 'Thought', id: string, text: string, createdAt: any, userId: string, bookId?: string | null | undefined, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any }, book?: { __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined } | null | undefined } };
+
+export type ThoughtDeleteMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ThoughtDeleteMutation = { thoughtDelete: boolean };
+
 export type UserPartsFragment = { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -378,6 +436,7 @@ export const UserBookPartsFragmentDoc = {"kind":"Document","definitions":[{"kind
 export const LocationPartsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"parentName"}},{"kind":"Field","name":{"kind":"Name","value":"addressLine"}}]}}]} as unknown as DocumentNode;
 export const InventoryPartsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InventoryParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Inventory"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userBookId"}},{"kind":"Field","name":{"kind":"Name","value":"userBook"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserBookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"locationId"}},{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocationParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"removed"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"parentName"}},{"kind":"Field","name":{"kind":"Name","value":"addressLine"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserBookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserBook"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"endedAt"}}]}}]} as unknown as DocumentNode;
 export const InventoryClaimPartsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InventoryClaimParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"InventoryClaim"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"inventoryId"}},{"kind":"Field","name":{"kind":"Name","value":"inventory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InventoryParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"claimedAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InventoryParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Inventory"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userBookId"}},{"kind":"Field","name":{"kind":"Name","value":"userBook"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserBookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"locationId"}},{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocationParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"removed"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"parentName"}},{"kind":"Field","name":{"kind":"Name","value":"addressLine"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserBookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserBook"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"endedAt"}}]}}]} as unknown as DocumentNode;
+export const ThoughtPartsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ThoughtParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Thought"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode;
 export const BooksDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"books"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"books"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}}]} as unknown as DocumentNode;
 
 export function useBooksQuery(options: Omit<Urql.UseQueryArgs<BooksQueryVariables>, 'query'> = {}) {
@@ -438,6 +497,21 @@ export const LocationsDocument = {"kind":"Document","definitions":[{"kind":"Oper
 export function useLocationsQuery(options: Omit<Urql.UseQueryArgs<LocationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<LocationsQuery>({ query: LocationsDocument, ...options });
 };
+export const ThoughtsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"thoughts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thoughts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ThoughtParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ThoughtParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Thought"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode;
+
+export function useThoughtsQuery(options: Omit<Urql.UseQueryArgs<ThoughtsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<ThoughtsQuery>({ query: ThoughtsDocument, ...options });
+};
+export const ThoughtCreateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"thoughtCreate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"text"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"bookId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thoughtCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"text"},"value":{"kind":"Variable","name":{"kind":"Name","value":"text"}}},{"kind":"Argument","name":{"kind":"Name","value":"bookId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"bookId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ThoughtParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ThoughtParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Thought"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode;
+
+export function useThoughtCreateMutation() {
+  return Urql.useMutation<ThoughtCreateMutation, ThoughtCreateMutationVariables>(ThoughtCreateDocument);
+};
+export const ThoughtDeleteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"thoughtDelete"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"thoughtDelete"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}]}}]} as unknown as DocumentNode;
+
+export function useThoughtDeleteMutation() {
+  return Urql.useMutation<ThoughtDeleteMutation, ThoughtDeleteMutationVariables>(ThoughtDeleteDocument);
+};
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}},{"kind":"Field","name":{"kind":"Name","value":"credit"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode;
 
 export function useMeQuery(options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'> = {}) {
@@ -487,6 +561,7 @@ export type GraphCacheKeysConfig = {
   Inventory?: (data: WithTypename<Inventory>) => null | string,
   InventoryClaim?: (data: WithTypename<InventoryClaim>) => null | string,
   Location?: (data: WithTypename<Location>) => null | string,
+  Thought?: (data: WithTypename<Thought>) => null | string,
   User?: (data: WithTypename<User>) => null | string,
   UserBook?: (data: WithTypename<UserBook>) => null | string
 }
@@ -505,6 +580,7 @@ export type GraphCacheResolvers = {
     inventoryClaimsMine?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, Array<WithTypename<InventoryClaim> | string>>,
     inventoryClaimToken?: GraphCacheResolver<WithTypename<Query>, QueryInventoryClaimTokenArgs, Scalars['String'] | string>,
     locations?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, Array<WithTypename<Location> | string>>,
+    thoughts?: GraphCacheResolver<WithTypename<Query>, QueryThoughtsArgs, Array<WithTypename<Thought> | string>>,
     me?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, WithTypename<User> | string>,
     user?: GraphCacheResolver<WithTypename<Query>, QueryUserArgs, WithTypename<User> | string>,
     userBook?: GraphCacheResolver<WithTypename<Query>, QueryUserBookArgs, WithTypename<UserBook> | string>,
@@ -556,6 +632,15 @@ export type GraphCacheResolvers = {
     parentName?: GraphCacheResolver<WithTypename<Location>, Record<string, never>, Scalars['String'] | string>,
     addressLine?: GraphCacheResolver<WithTypename<Location>, Record<string, never>, Scalars['String'] | string>
   },
+  Thought?: {
+    id?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, Scalars['ID'] | string>,
+    text?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, Scalars['String'] | string>,
+    createdAt?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, Scalars['Time'] | string>,
+    userId?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, Scalars['ID'] | string>,
+    user?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, WithTypename<User> | string>,
+    bookId?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, Scalars['ID'] | string>,
+    book?: GraphCacheResolver<WithTypename<Thought>, Record<string, never>, WithTypename<Book> | string>
+  },
   User?: {
     id?: GraphCacheResolver<WithTypename<User>, Record<string, never>, Scalars['ID'] | string>,
     name?: GraphCacheResolver<WithTypename<User>, Record<string, never>, Scalars['String'] | string>,
@@ -579,6 +664,8 @@ export type GraphCacheResolvers = {
 export type GraphCacheOptimisticUpdaters = {
   foo?: GraphCacheOptimisticMutationResolver<Record<string, never>, Maybe<Scalars['Int']>>,
   inventoryClaimDo?: GraphCacheOptimisticMutationResolver<MutationInventoryClaimDoArgs, WithTypename<InventoryClaim>>,
+  thoughtCreate?: GraphCacheOptimisticMutationResolver<MutationThoughtCreateArgs, WithTypename<Thought>>,
+  thoughtDelete?: GraphCacheOptimisticMutationResolver<MutationThoughtDeleteArgs, Scalars['Boolean']>,
   meUpdate?: GraphCacheOptimisticMutationResolver<MutationMeUpdateArgs, Maybe<WithTypename<User>>>,
   userBookAdd?: GraphCacheOptimisticMutationResolver<MutationUserBookAddArgs, WithTypename<UserBook>>,
   userBookEdit?: GraphCacheOptimisticMutationResolver<MutationUserBookEditArgs, WithTypename<UserBook>>,
@@ -589,6 +676,8 @@ export type GraphCacheUpdaters = {
   Mutation?: {
     foo?: GraphCacheUpdateResolver<{ foo: Maybe<Scalars['Int']> }, Record<string, never>>,
     inventoryClaimDo?: GraphCacheUpdateResolver<{ inventoryClaimDo: WithTypename<InventoryClaim> }, MutationInventoryClaimDoArgs>,
+    thoughtCreate?: GraphCacheUpdateResolver<{ thoughtCreate: WithTypename<Thought> }, MutationThoughtCreateArgs>,
+    thoughtDelete?: GraphCacheUpdateResolver<{ thoughtDelete: Scalars['Boolean'] }, MutationThoughtDeleteArgs>,
     meUpdate?: GraphCacheUpdateResolver<{ meUpdate: Maybe<WithTypename<User>> }, MutationMeUpdateArgs>,
     userBookAdd?: GraphCacheUpdateResolver<{ userBookAdd: WithTypename<UserBook> }, MutationUserBookAddArgs>,
     userBookEdit?: GraphCacheUpdateResolver<{ userBookEdit: WithTypename<UserBook> }, MutationUserBookEditArgs>,

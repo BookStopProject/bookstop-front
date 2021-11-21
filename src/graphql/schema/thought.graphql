@@ -1,0 +1,29 @@
+fragment ThoughtParts on Thought {
+  id
+  text
+  createdAt
+  userId
+  user {
+    ...UserParts
+  }
+  bookId
+  book {
+    ...BookParts
+  }
+}
+
+query thoughts($userId: ID, $limit: Int!, $before: Int) {
+  thoughts(userId: $userId, limit: $limit, before: $before) {
+    ...ThoughtParts
+  }
+}
+
+mutation thoughtCreate($text: String!, $bookId: ID) {
+  thoughtCreate(text: $text, bookId: $bookId) {
+    ...ThoughtParts
+  }
+}
+
+mutation thoughtDelete($id: ID!) {
+  thoughtDelete(id: $id)
+}

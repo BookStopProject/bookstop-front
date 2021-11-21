@@ -29,7 +29,7 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
 
 const BottomBar: FC = () => {
   return (
-    <div className="flex fixed bottom-0 w-full h-12 bg-primary-dark md:hidden">
+    <div className="flex fixed bottom-0 z-20 w-full h-12 bg-primary-dark md:hidden">
       <Tab icon={<IconHome />} href="/" title="Home" />
       <Tab icon={<IconZap />} href="/feed" title="Feed" />
       <Tab icon={<IconCalendarEvent />} href="/events" title="Events" />

@@ -42,7 +42,7 @@ const UserBookTimeline: FC<{ userBook: UserBook }> = ({ userBook }) => {
       {fetching ? (
         <IconLoader className="mx-auto animate-spin" />
       ) : data?.exchanges.length ? (
-        <div className="space-y-2">
+        <div className="mx-auto space-y-2 max-w-md">
           {data.exchanges.map((exchange) => (
             <ExchangeBlock key={exchange.id} exchange={exchange} />
           ))}

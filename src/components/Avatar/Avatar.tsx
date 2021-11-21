@@ -16,7 +16,11 @@ const Avatar: FC<AvatarProps> = ({ username, src, size }) => {
         fontSize: size / 10 + "rem",
       }}
     >
-      {src ? <img src={src} alt={username} /> : <span>{username[0]}</span>}
+      {src ? (
+        <img className="w-full h-full" src={src} alt={username} />
+      ) : (
+        <span>{username[0]}</span>
+      )}
     </span>
   );
 };
