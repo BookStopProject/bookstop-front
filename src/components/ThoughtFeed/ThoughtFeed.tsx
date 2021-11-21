@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { Thought } from "@/graphql/gql.gen";
-import { useThoughtsQuery } from "@/graphql/gql.gen";
+import {
+  useMeQuery,
+  useThoughtDeleteMutation,
+  useThoughtsQuery,
+} from "@/graphql/gql.gen";
 import { format } from "@lukeed/ms";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader, IconTrash } from "@tabler/icons";
 import Link from "next/link";
 import type { FC } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import toast from "react-hot-toast";
 import type { IntersectionOptions } from "react-intersection-observer";
 import { useInView } from "react-intersection-observer";
 import { Avatar } from "../Avatar";
@@ -31,8 +36,21 @@ const ThoughtItem: FC<{ thought: Thought }> = ({ thought }) => {
   const timeStr = useMemo(() => {
     return format(Date.now() - thought.createdAt.getTime()) + " ago";
   }, [thought]);
+  const [{ data: dataMe }] = useMeQuery();
+  const [{ fetching: fetchingDelete }, thoughtDelete] =
+    useThoughtDeleteMutation();
+  const onDelete = useCallback(async () => {
+    if (!window.confirm("Are you sure you want to delete this thought?")) {
+      return;
+    }
+    const result = await thoughtDelete({ id: thought.id });
+    if (!result.error) {
+      toast.success("Thought has been removed");
+    }
+  }, [thought, thoughtDelete]);
+
   return (
-    <div className="flex py-2 px-3 bg-white bg-opacity-50 rounded-lg shadow-lg">
+    <div className="flex relative py-2 px-3 bg-white bg-opacity-50 rounded-lg shadow-lg">
       <Avatar
         size={10}
         src={thought.user.profileImageUrl}
@@ -43,7 +61,7 @@ const ThoughtItem: FC<{ thought: Thought }> = ({ thought }) => {
           <a className="font-serif text-lg leading-none">{thought.user.name}</a>
         </Link>
         <div className="text-sm text-opacity-50 text-foreground">{timeStr}</div>
-        <p className="mt-1">{thought.text}</p>
+        <p className="mt-1 whitespace-pre-line">{thought.text}</p>
         {thought.book && (
           <div className="flex pt-4 mt-1 border-t-2 border-highlight">
             <div className="w-12 shadow-lg">
@@ -65,6 +83,16 @@ const ThoughtItem: FC<{ thought: Thought }> = ({ thought }) => {
           </div>
         )}
       </div>
+      {dataMe?.me?.id === thought.userId && (
+        <button
+          disabled={fetchingDelete}
+          onClick={onDelete}
+          className="absolute top-2 right-2"
+          aria-label={`Remove post: ${thought.text}`}
+        >
+          <IconTrash width={18} height={18} />
+        </button>
+      )}
     </div>
   );
 };

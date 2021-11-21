@@ -46,7 +46,7 @@ const ThoughtWriterContent: FC<{ onDismiss(): void; me: User }> = ({
         ref={textRef}
         placeholder={`What are you thinking, ${me.name}?`}
         rows={4}
-        maxLength={280}
+        maxLength={2000}
       />
       <select
         ref={bookIdRef}
