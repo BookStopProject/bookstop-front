@@ -69,6 +69,14 @@ export function newClient() {
               return new Date(createdAt);
             },
           },
+          Event: {
+            startedAt({ startedAt }) {
+              return new Date(startedAt);
+            },
+            endedAt({ endedAt }) {
+              return new Date(endedAt);
+            },
+          },
         },
         updates: {
           Mutation: {

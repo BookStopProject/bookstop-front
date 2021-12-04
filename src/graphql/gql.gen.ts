@@ -39,6 +39,18 @@ export type Browse = {
   startedAt?: Maybe<Scalars['Time']>;
 };
 
+export type Event = {
+  __typename?: 'Event';
+  description: Scalars['String'];
+  endedAt: Scalars['Time'];
+  href: Scalars['String'];
+  id: Scalars['ID'];
+  startedAt: Scalars['Time'];
+  title: Scalars['String'];
+  user: User;
+  userId: Scalars['ID'];
+};
+
 export type Exchange = {
   __typename?: 'Exchange';
   exchangedAt: Scalars['Time'];
@@ -135,6 +147,7 @@ export type Query = {
   browse?: Maybe<Browse>;
   browseBooks: Array<Book>;
   browses: Array<Browse>;
+  events: Array<Event>;
   exchanges: Array<Exchange>;
   foo?: Maybe<Scalars['Int']>;
   inventories: Array<Inventory>;
@@ -293,6 +306,11 @@ export type SearchQueryVariables = Exact<{
 
 
 export type SearchQuery = { search: Array<{ __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined }> };
+
+export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EventsQuery = { events: Array<{ __typename?: 'Event', id: string, title: string, description: string, href: string, userId: string, startedAt: any, endedAt: any, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any } }> };
 
 export type ExchangesQueryVariables = Exact<{
   userBookId: Scalars['ID'];
@@ -467,6 +485,11 @@ export const SearchDocument = {"kind":"Document","definitions":[{"kind":"Operati
 export function useSearchQuery(options: Omit<Urql.UseQueryArgs<SearchQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<SearchQuery>({ query: SearchDocument, ...options });
 };
+export const EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"href"}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"endedAt"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode;
+
+export function useEventsQuery(options: Omit<Urql.UseQueryArgs<EventsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<EventsQuery>({ query: EventsDocument, ...options });
+};
 export const ExchangesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"exchanges"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userBookId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exchanges"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"userBookId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userBookId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userBookIdOld"}},{"kind":"Field","name":{"kind":"Name","value":"userBookOld"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserBookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userBookIdNew"}},{"kind":"Field","name":{"kind":"Name","value":"userBookNew"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserBookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"exchangedAt"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserBookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserBook"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"endedAt"}}]}}]} as unknown as DocumentNode;
 
 export function useExchangesQuery(options: Omit<Urql.UseQueryArgs<ExchangesQueryVariables>, 'query'> = {}) {
@@ -557,6 +580,7 @@ export type WithTypename<T extends { __typename?: any }> = { [K in Exclude<keyof
 export type GraphCacheKeysConfig = {
   Book?: (data: WithTypename<Book>) => null | string,
   Browse?: (data: WithTypename<Browse>) => null | string,
+  Event?: (data: WithTypename<Event>) => null | string,
   Exchange?: (data: WithTypename<Exchange>) => null | string,
   Inventory?: (data: WithTypename<Inventory>) => null | string,
   InventoryClaim?: (data: WithTypename<InventoryClaim>) => null | string,
@@ -575,6 +599,7 @@ export type GraphCacheResolvers = {
     browse?: GraphCacheResolver<WithTypename<Query>, QueryBrowseArgs, WithTypename<Browse> | string>,
     browseBooks?: GraphCacheResolver<WithTypename<Query>, QueryBrowseBooksArgs, Array<WithTypename<Book> | string>>,
     search?: GraphCacheResolver<WithTypename<Query>, QuerySearchArgs, Array<WithTypename<Book> | string>>,
+    events?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, Array<WithTypename<Event> | string>>,
     exchanges?: GraphCacheResolver<WithTypename<Query>, QueryExchangesArgs, Array<WithTypename<Exchange> | string>>,
     inventories?: GraphCacheResolver<WithTypename<Query>, QueryInventoriesArgs, Array<WithTypename<Inventory> | string>>,
     inventoryClaimsMine?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, Array<WithTypename<InventoryClaim> | string>>,
@@ -603,6 +628,16 @@ export type GraphCacheResolvers = {
     imageUrl?: GraphCacheResolver<WithTypename<Browse>, Record<string, never>, Scalars['String'] | string>,
     startedAt?: GraphCacheResolver<WithTypename<Browse>, Record<string, never>, Scalars['Time'] | string>,
     endedAt?: GraphCacheResolver<WithTypename<Browse>, Record<string, never>, Scalars['Time'] | string>
+  },
+  Event?: {
+    id?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['ID'] | string>,
+    title?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['String'] | string>,
+    description?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['String'] | string>,
+    href?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['String'] | string>,
+    userId?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['ID'] | string>,
+    user?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, WithTypename<User> | string>,
+    startedAt?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['Time'] | string>,
+    endedAt?: GraphCacheResolver<WithTypename<Event>, Record<string, never>, Scalars['Time'] | string>
   },
   Exchange?: {
     id?: GraphCacheResolver<WithTypename<Exchange>, Record<string, never>, Scalars['ID'] | string>,

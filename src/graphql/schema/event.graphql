@@ -1,0 +1,14 @@
+query events {
+  events {
+    id
+    title
+    description
+    href
+    userId
+    user {
+      ...UserParts
+    }
+    startedAt
+    endedAt
+  }
+}

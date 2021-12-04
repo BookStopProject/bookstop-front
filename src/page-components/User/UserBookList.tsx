@@ -20,7 +20,7 @@ const UserBookList: FC<{ userId: string }> = ({ userId }) => {
           href={`/user/${userBook.userId}/book/${userBook.id}`}
           key={userBook.id}
         >
-          <a className="transition-colors hover:bg-background-secondary">
+          <a className="p-2 transition-colors rounded-lg hover:bg-background-secondary">
             <UserBookItem userBook={userBook} />
           </a>
         </Link>
