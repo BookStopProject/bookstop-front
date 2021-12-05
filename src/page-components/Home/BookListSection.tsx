@@ -7,6 +7,7 @@ import { useMemo } from "react";
 
 interface BookListSectionProps {
   title: string;
+  description?: string | null;
   browseId: string;
 }
 
@@ -20,7 +21,11 @@ function shuffleArray<T>(array: T[]) {
   return array;
 }
 
-const BookListSection: FC<BookListSectionProps> = ({ title, browseId }) => {
+const BookListSection: FC<BookListSectionProps> = ({
+  title,
+  description,
+  browseId,
+}) => {
   const [{ data }] = useBrowseBooksQuery({
     variables: {
       id: browseId,
@@ -31,12 +36,13 @@ const BookListSection: FC<BookListSectionProps> = ({ title, browseId }) => {
     [data?.browseBooks]
   );
   return (
-    <section className="container mb-4">
-      <h2 className="mb-2 font-serif text-2xl">{title}</h2>
+    <section className="container">
+      <h2 className="text-xl font-medium">{title}</h2>
+      <p className="mb-4 text-on-surface-variant">{description}</p>
       <Scroller classNameContent="gap-x-4">
         {resortedBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
-            <a className="w-32 md:w-48">
+            <a className="w-32 md:w-48 hover:opacity-75 focus:opacity-80 transition-opacity focus:outline-none">
               <BookItem book={book} />
             </a>
           </Link>

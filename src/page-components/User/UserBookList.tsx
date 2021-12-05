@@ -14,13 +14,13 @@ const UserBookList: FC<{ userId: string }> = ({ userId }) => {
   if (fetching) return <IconLoader className="mx-auto animate-spin" />;
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {data?.userBooks.map((userBook) => (
         <Link
           href={`/user/${userBook.userId}/book/${userBook.id}`}
           key={userBook.id}
         >
-          <a className="p-2 transition-colors rounded-lg hover:bg-background-secondary">
+          <a className="rounded-lg focus:ring-2 ring-surface-variant hover:opacity-75 transition focus:outline-none">
             <UserBookItem userBook={userBook} />
           </a>
         </Link>

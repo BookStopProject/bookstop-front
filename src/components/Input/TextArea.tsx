@@ -1,57 +1,40 @@
-import clsx from "clsx";
-import type { ChangeEventHandler, ReactNode } from "react";
+import type { ChangeEventHandler } from "react";
 import { forwardRef } from "react";
+import { useModal } from "../Modal";
+import type { InputContainerProps } from "./InputContainer";
+import { InputContainer } from "./InputContainer";
+import type { InputCommonProps } from "./types";
 
-interface TextAreaProps {
-  placeholder?: string;
-  left?: ReactNode;
-  right?: ReactNode;
-  label?: string;
-  rounded?: boolean;
-  className?: string;
+interface TextAreaProps extends InputContainerProps, InputCommonProps {
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-  value?: string;
   maxLength?: number;
   rows: number;
 }
 
 const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function Input(
-  {
-    left,
-    right,
-    rounded,
-    placeholder,
-    label,
-    className,
-    onChange,
-    value,
-    maxLength,
-    rows,
-  },
+  { placeholder, label, className, onChange, value, maxLength, rows, variant },
   ref
 ) {
+  const [focused, focus, blur] = useModal();
   return (
-    <label className={className}>
-      {label && <span>{label}</span>}
-      <div
-        className={clsx(
-          "flex items-center py-2 px-3 space-x-2 bg-control",
-          rounded ? "rounded-full" : "rounded"
-        )}
-      >
-        {left && <span>{left}</span>}
-        <textarea
-          maxLength={maxLength}
-          value={value}
-          onChange={onChange}
-          ref={ref}
-          placeholder={placeholder}
-          className="placeholder-[#B4ADA9] flex-1 h-full bg-transparent focus:outline-none"
-          rows={rows}
-        />
-        {right && <span>{right}</span>}
-      </div>
-    </label>
+    <InputContainer
+      focused={focused}
+      variant={variant}
+      label={label}
+      className={className}
+    >
+      <textarea
+        maxLength={maxLength}
+        value={value}
+        onChange={onChange}
+        ref={ref}
+        placeholder={placeholder}
+        className="flex-1 h-full bg-transparent"
+        rows={rows}
+        onFocus={focus}
+        onBlur={blur}
+      />
+    </InputContainer>
   );
 });
 

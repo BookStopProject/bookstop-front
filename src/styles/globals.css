@@ -3,11 +3,18 @@
 @tailwind utilities;
 
 @layer utilities {
-  .aspect-regular {
+  .aspect-regular,
+  .aspect-regular-short {
     position: relative;
-    padding-bottom: 160%;
   }
-  .aspect-regular > * {
+  .aspect-regular {
+    padding-bottom: 155%;
+  }
+  .aspect-regular-short {
+    padding-bottom: 145%;
+  }
+  .aspect-regular > *,
+  .aspect-regular-short > * {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -27,32 +34,81 @@
   }
 }
 
+*:focus {
+  outline: 0;
+}
+
+img {
+  color: transparent;
+}
+
 body {
-  @apply font-sans;
+  font-family: "Roboto", sans-serif;
 }
 
 html {
-  @apply bg-background text-foreground;
+  @apply bg-background text-on-background;
+}
+
+@import "@reach/menu-button/styles.css";
+
+[data-reach-popover] {
+  z-index: 21;
 }
 
 [data-reach-menu-list] {
-  background: theme("colors.background-secondary") !important;
-  padding: 0.5rem !important;
+  background: theme("colors.surface-variant") !important;
+  padding: 0 !important;
   margin-top: 4px;
-  @apply rounded-lg;
+  border: none !important;
+  @apply overflow-hidden rounded-lg shadow-md;
+}
+
+[data-reach-menu-item] {
+  padding: 12px 24px !important;
+  color: theme("colors.on-surface") !important;
 }
 
 [data-reach-menu-item][data-selected] {
-  background: transparent !important;
-  color: theme("colors.primary") !important;
+  background: rgba(0, 105, 110, var(--tw-bg-opacity)) !important;
+  @apply bg-opacity-50;
+}
+
+@import "@reach/dialog/styles.css";
+
+[data-reach-dialog-overlay] {
+  z-index: 21;
 }
 
 [data-reach-dialog-content] {
-  border-radius: 10px;
+  border-radius: 28px;
+  background: theme("colors.surface-1") !important;
+  color: theme("colors.on-surface");
 }
 
 @media (max-width: 768px) {
   [data-reach-dialog-content] {
     width: 90vw !important;
   }
+}
+
+@import "@reach/tabs/styles.css";
+
+[data-reach-tab-list] {
+  background: transparent !important;
+  @apply justify-center space-x-2 border-b-1 border-surface-variant;
+}
+
+[data-reach-tab] {
+  background-color: transparent;
+  @apply h-12 rounded-full;
+  font-weight: 500 !important;
+  margin: 4px !important;
+  padding: 0 24px !important;
+}
+
+[data-reach-tab][data-selected] {
+  border-bottom-color: transparent !important;
+  background-color: theme("colors.secondary-container");
+  color: theme("colors.on-primary-container");
 }

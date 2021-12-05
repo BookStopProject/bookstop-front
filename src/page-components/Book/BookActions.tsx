@@ -10,7 +10,7 @@ const BookActions: FC<{ book: Book }> = ({ book }) => {
   const [showExchange, setShowExchange] = useState(false);
   return (
     <>
-      <div className="flex justify-center py-4 space-x-2 md:justify-start">
+      <div className="flex justify-center md:justify-start py-4 space-x-2">
         <Button variant="filled" onClick={() => setShowExchange(true)}>
           Exchange
         </Button>
@@ -20,7 +20,7 @@ const BookActions: FC<{ book: Book }> = ({ book }) => {
               addingBookId: book.id,
             })
           }
-          variant="ghost"
+          variant="tonal"
         >
           Add to my library
         </Button>

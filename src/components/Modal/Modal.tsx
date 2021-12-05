@@ -15,7 +15,7 @@ const Modal: FC<ModalProps> = ({ onDismiss, visible, title, children }) => {
       onDismiss={onDismiss}
     >
       <div className="flex items-center">
-        <p className="flex-1 text-lg">{title}</p>
+        <p className="flex-1 text-lg text-on-surface">{title}</p>
         {onDismiss && (
           <button
             className="p-2 hover:opacity-75 focus:opacity-75"

@@ -9,7 +9,7 @@ interface AvatarProps {
 const Avatar: FC<AvatarProps> = ({ username, src, size }) => {
   return (
     <span
-      className="flex overflow-hidden justify-center items-center rounded-full select-none bg-background-secondary"
+      className="flex overflow-hidden justify-center items-center bg-surface rounded-full select-none"
       style={{
         width: size * 4,
         height: size * 4,

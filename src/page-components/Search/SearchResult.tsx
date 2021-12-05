@@ -26,10 +26,10 @@ const SearchResult: FC = () => {
         </div>
       ) : data?.search.length ? (
         <>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-4">
             {data?.search.map((book) => (
               <Link key={book.id} href={`/book/${book.id}`}>
-                <a>
+                <a className="hover:opacity-75 focus:opacity-80 transition-opacity focus:outline-none">
                   <BookItem book={book} />
                 </a>
               </Link>
@@ -38,7 +38,7 @@ const SearchResult: FC = () => {
           <div className="py-4">
             <Button
               className="w-full"
-              variant="ghost"
+              variant="tonal"
               onClick={loadMore}
               fetching={fetching}
             >

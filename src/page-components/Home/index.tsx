@@ -9,13 +9,16 @@ const HomePage: FC = () => {
   return (
     <>
       <SectionSearch />
-      {data?.browses.map((browse) => (
-        <BookListSection
-          key={browse.id}
-          title={browse.name}
-          browseId={browse.id}
-        />
-      ))}
+      <div className="space-y-10">
+        {data?.browses.map((browse) => (
+          <BookListSection
+            key={browse.id}
+            title={browse.name}
+            description={browse.description}
+            browseId={browse.id}
+          />
+        ))}
+      </div>
     </>
   );
 };

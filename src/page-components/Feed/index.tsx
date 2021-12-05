@@ -10,7 +10,7 @@ const FeedPage: FC = () => {
   return (
     <div className="container">
       <PageTitle>My Feed</PageTitle>
-      <Button onClick={present} variant="ghost" className="mx-auto">
+      <Button onClick={present} variant="tonal" className="mx-auto">
         Add a thought
       </Button>
       <ThoughtWriter visible={visible} onDismiss={dismiss} />

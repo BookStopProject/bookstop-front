@@ -23,12 +23,11 @@ const SearchInput: FC = () => {
     [router]
   );
   return (
-    <form className="container mb-2" onSubmit={onSubmit}>
+    <form className="container pt-4 pb-8" onSubmit={onSubmit}>
       <Input
         ref={ref}
         placeholder="Titles, authors, or readers"
-        rounded
-        left={<IconSearch className="text-opacity-75 text-foreground" />}
+        left={<IconSearch className="text-on-surface-variant" />}
       />
     </form>
   );

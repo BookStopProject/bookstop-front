@@ -1,4 +1,4 @@
-import { BookItem } from "@/components/Book";
+import { BookItemImage, BookItemMeta } from "@/components/Book";
 import type { InventoryClaim } from "@/graphql/gql.gen";
 import { useInventoryClaimsMineQuery } from "@/graphql/gql.gen";
 import { IconCheck, IconLoader, IconPoint } from "@tabler/icons";
@@ -16,29 +16,26 @@ const InventoryClaimItem: FC<{
   return (
     <button
       onClick={onClick}
-      className="flex p-1 text-left bg-transparent rounded hover:bg-highlight"
+      className="flex p-2 text-left bg-surface-1 hover:bg-surface-variant focus:bg-surface-variant rounded-lg"
     >
       <div className="w-20">
-        <BookItem book={claim.inventory.userBook.book} />
+        <BookItemImage book={claim.inventory.userBook.book} />
       </div>
       <div className="flex-1 py-2 pl-4 min-w-0">
-        <div className="font-bold">{claim.inventory.userBook.book.title}</div>
-        <div className="text-sm text-opacity-75 text-foreground">
-          {claim.inventory.userBook.book.authors.join(", ")}
-        </div>
-        <div className="my-1 text-sm">
+        <BookItemMeta book={claim.inventory.userBook.book} />
+        <div className="mt-2 mb-1 text-sm">
           <span>Exchanged at</span>{" "}
-          <span className="font-bold text-primary-dark">
+          <span className="font-medium text-secondary">
             {claim.inventory.location.name}
           </span>
         </div>
         <div className="text-sm">
           {claim.inventory.removed ? (
-            <span className="flex items-center text-opacity-50 text-foreground">
+            <span className="flex items-center text-on-surface-variant">
               <IconCheck /> Received
             </span>
           ) : (
-            <span className="flex items-center text-success">
+            <span className="flex items-center font-medium text-primary animate-pulse">
               <IconPoint className="animate-pulse" /> Ready for pick-up
             </span>
           )}
@@ -57,13 +54,11 @@ const ClaimList: FC<{ onSelect(inventoryClaim: InventoryClaim): void }> = ({
   }
   if (!data?.inventoryClaimsMine.length) {
     return (
-      <p className="text-center text-opacity-75 text-foreground">
-        No exchanges found
-      </p>
+      <p className="text-center text-on-surface-variant">No exchanges found</p>
     );
   }
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {data.inventoryClaimsMine.map((claim) => (
         <InventoryClaimItem key={claim.id} claim={claim} onSelect={onSelect} />
       ))}

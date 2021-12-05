@@ -3,47 +3,37 @@ import clsx from "clsx";
 import type { FC, ReactNode } from "react";
 
 interface ButtonProps {
-  variant?: "filled" | "ghost";
-  circled?: boolean;
+  variant?: "filled" | "tonal";
   onClick?(): void;
   className?: string;
   fetching?: boolean;
   disabled?: boolean;
-  color?: "primary" | "danger";
   left?: ReactNode;
 }
 
 const Button: FC<ButtonProps> = ({
   variant = "filled",
   children,
-  circled,
   className,
   onClick,
   fetching,
   disabled,
-  color = "primary",
   left,
 }) => {
+  disabled = disabled || fetching;
   return (
     <button
       className={clsx(
-        `flex justify-center items-center px-4 space-x-2 h-10 transition-colors`,
+        `flex overflow-hidden relative justify-center items-center px-6 space-x-2 h-10 rounded-full focus-visible:ring-2 focus:outline-none`,
         variant === "filled" &&
-          clsx(
-            color === "primary" && "text-primary-text bg-primary",
-            !fetching && color === "primary" && "hover:bg-primary-dark",
-            color === "danger" && "text-danger-text bg-danger",
-            !fetching && color === "danger" && "hover:bg-danger-dark"
-          ),
-        variant === "ghost" &&
-          clsx(
-            "bg-opacity-10",
-            !fetching && "hover:bg-opacity-25",
-            color === "primary" && "bg-primary text-primary-dark",
-            color === "danger" && "bg-danger text-danger"
-          ),
-        fetching && "opacity-75",
-        circled ? "rounded-full" : "rounded-lg",
+          !disabled &&
+          "text-on-primary bg-primary after:bg-on-primary",
+        variant === "tonal" &&
+          !disabled &&
+          "text-on-secondary-container bg-secondary-container after:bg-on-secondary-container",
+        "after:absolute after:inset-0 after:bg-opacity-0 hover:after:bg-opacity-8 focus:after:bg-opacity-12 after:pointer-events-none",
+        disabled &&
+          "text-on-surface text-opacity-40 bg-on-surface bg-opacity-12",
         className
       )}
       onClick={onClick}
@@ -56,7 +46,7 @@ const Button: FC<ButtonProps> = ({
       ) : (
         left
       )}
-      <span>{children}</span>
+      <span className="text-sm font-medium">{children}</span>
     </button>
   );
 };

@@ -4,13 +4,7 @@ import CONFIG from "@/config";
 import { PARAM_AUTH_SIGNOUT } from "@/graphql/authHook";
 import { useMeQuery } from "@/graphql/gql.gen";
 import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
-import {
-  IconBook,
-  IconCalendarEvent,
-  IconCoin,
-  IconHome,
-  IconReceipt,
-} from "@tabler/icons";
+import { IconBook, IconCalendarEvent, IconCoin, IconHome } from "@tabler/icons";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,8 +25,10 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
     <Link href={href}>
       <a
         className={clsx(
-          "flex py-3 px-6 border-b-4 transition-colors",
-          isActive ? "border-primary" : "border-transparent"
+          "flex py-2 px-4 font-medium focus:bg-surface-2 rounded-full transition-colors",
+          isActive
+            ? "text-on-secondary-container bg-surface-2"
+            : "text-on-surface-variant"
         )}
       >
         {icon}
@@ -44,7 +40,7 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
 
 const Tabs: FC = () => {
   return (
-    <div className="hidden items-center space-x-2 md:flex">
+    <div className="hidden md:flex items-center space-x-4">
       <Tab icon={<IconHome />} href="/" title="Home" />
       <Tab icon={<IconZap />} href="/feed" title="Feed" />
       <Tab icon={<IconCalendarEvent />} href="/events" title="Events" />
@@ -69,12 +65,7 @@ const Auth: FC = () => {
   if (data?.me) {
     return (
       <div className="flex items-center space-x-2">
-        <Link href="/my-exchange">
-          <a className="flex justify-center items-center w-10 h-10 rounded-full bg-highlight">
-            <IconReceipt />
-          </a>
-        </Link>
-        <div className="flex items-center py-2 px-4 bg-opacity-25 rounded-full bg-primary text-primary-dark">
+        <div className="flex items-center px-4 h-10 text-secondary bg-surface-variant rounded-full">
           <IconCoin />
           <span className="ml-1 font-bold">{data.me.credit}</span>
         </div>
@@ -105,7 +96,7 @@ const Auth: FC = () => {
 
   return (
     <div>
-      <Button onClick={signIn} circled variant="ghost">
+      <Button onClick={signIn} variant="tonal">
         Sign in
       </Button>
     </div>
@@ -114,17 +105,20 @@ const Auth: FC = () => {
 
 const Header: FC = () => {
   return (
-    <div className="flex justify-between items-center py-2 px-4 space-x-2 md:py-6 md:px-8">
-      <Link href="/">
-        <a className="flex-none w-36 lg:w-48">
-          <Image src={logo} alt="Logo" />
-        </a>
-      </Link>
-      <Tabs />
-      <div className="flex justify-end items-center w-48">
-        <Auth />
+    <>
+      <div className="flex fixed top-0 z-20 justify-between items-center px-4 md:px-8 space-x-2 w-full h-16 bg-surface">
+        <Link href="/">
+          <a className="flex-none w-36 lg:w-48">
+            <Image src={logo} alt="Logo" />
+          </a>
+        </Link>
+        <Tabs />
+        <div className="flex justify-end items-center w-48">
+          <Auth />
+        </div>
       </div>
-    </div>
+      <div className="h-16" />
+    </>
   );
 };
 

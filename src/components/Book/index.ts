@@ -1,1 +1,1 @@
-export { default as BookItem } from "./BookItem";
+export { BookItemImage, BookItemMeta, default as BookItem } from "./BookItem";

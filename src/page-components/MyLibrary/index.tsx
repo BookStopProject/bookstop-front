@@ -15,7 +15,7 @@ const MyLibraryPage: FC = () => {
       ) : data?.me ? (
         <UserBookList />
       ) : (
-        <AuthBanner title="Sign in to browse your library" />
+        <AuthBanner title="Sign in to manage your library" />
       )}
     </div>
   );

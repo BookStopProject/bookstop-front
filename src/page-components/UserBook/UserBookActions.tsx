@@ -8,6 +8,7 @@ import UserBookInfoModal from "./UserBookInfoModal";
 const UserBookActions: FC<{ userBook: UserBook }> = ({ userBook }) => {
   const setUserBookEditor = useUserBookEditor();
   const [visible, present, dismiss] = useModal();
+
   return (
     <>
       <div className="flex justify-center pb-4 space-x-2">
@@ -17,11 +18,11 @@ const UserBookActions: FC<{ userBook: UserBook }> = ({ userBook }) => {
               editingId: userBook.id,
             })
           }
-          variant="ghost"
+          variant="tonal"
         >
           Edit
         </Button>
-        <Button onClick={present} variant="ghost">
+        <Button onClick={present} variant="tonal">
           Check in
         </Button>
       </div>

@@ -1,31 +1,27 @@
-import clsx from "clsx";
 import type {
   ChangeEventHandler,
   HTMLInputTypeAttribute,
   ReactNode,
 } from "react";
 import { forwardRef } from "react";
+import { useModal } from "../Modal";
+import type { InputContainerProps } from "./InputContainer";
+import { InputContainer } from "./InputContainer";
+import type { InputCommonProps } from "./types";
 
-interface InputProps {
-  placeholder?: string;
+interface InputProps extends InputContainerProps, InputCommonProps {
   left?: ReactNode;
   right?: ReactNode;
-  label?: string;
-  rounded?: boolean;
-  className?: string;
   htmlType?: HTMLInputTypeAttribute;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  value?: string;
   min?: string;
   max?: string;
-  required?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     left,
     right,
-    rounded,
     placeholder,
     label,
     className,
@@ -35,33 +31,34 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     min,
     max,
     required,
+    variant,
   },
   ref
 ) {
+  const [focused, focus, blur] = useModal();
   return (
-    <label className={className}>
-      {label && <span>{label}</span>}
-      <div
-        className={clsx(
-          "flex items-center px-3 space-x-2 h-10 bg-control",
-          rounded ? "rounded-full" : "rounded"
-        )}
-      >
-        {left && <span>{left}</span>}
-        <input
-          min={min}
-          max={max}
-          value={value}
-          onChange={onChange}
-          type={htmlType}
-          ref={ref}
-          placeholder={placeholder}
-          className="placeholder-[#B4ADA9] flex-1 h-full bg-transparent focus:outline-none"
-          required={required}
-        />
-        {right && <span>{right}</span>}
-      </div>
-    </label>
+    <InputContainer
+      focused={focused}
+      variant={variant}
+      label={label}
+      className={className}
+    >
+      {left && <span>{left}</span>}
+      <input
+        min={min}
+        max={max}
+        value={value}
+        onChange={onChange}
+        type={htmlType}
+        ref={ref}
+        placeholder={placeholder}
+        className="flex-1 h-full bg-transparent"
+        required={required}
+        onFocus={focus}
+        onBlur={blur}
+      />
+      {right && <span>{right}</span>}
+    </InputContainer>
   );
 });
 

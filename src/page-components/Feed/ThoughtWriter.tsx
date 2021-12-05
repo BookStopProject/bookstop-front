@@ -50,10 +50,10 @@ const ThoughtWriterContent: FC<{ onDismiss(): void; me: User }> = ({
       />
       <select
         ref={bookIdRef}
-        className="p-2 w-full rounded bg-control"
+        className="p-2 w-full"
         aria-label="Select a book to mention (optional)"
       >
-        <option className="text-opacity-50 text-foreground" value="">
+        <option className="text-on-surface-variant" value="">
           Mention a book
         </option>
         {dataUserBooks?.userBooks.map((userBook) => (
@@ -63,7 +63,7 @@ const ThoughtWriterContent: FC<{ onDismiss(): void; me: User }> = ({
         ))}
       </select>
       <Button fetching={fetching} className="w-full">
-        Add
+        Post
       </Button>
     </form>
   );

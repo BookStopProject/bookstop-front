@@ -63,7 +63,7 @@ const UserBookEditorDate: FC<UserBookEditorDateProps> = ({
         You {readState === -1 && "intend to read"}
         {readState === 0 && "are currently reading"}
         {readState === 1 && "have read"}{" "}
-        <i className="text-primary-dark">{bookName}</i>
+        <i className="text-primary">{bookName}</i>
       </small>
     </div>
   );

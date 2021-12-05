@@ -16,8 +16,10 @@ const ChevronButton: FC<{ position: "left" | "right"; onClick(): void }> = ({
   return (
     <button
       className={clsx(
-        "hidden md:flex justify-center items-center w-12 h-full absolute top-0 text-foreground",
-        position === "left" ? "left-0" : "right-0"
+        "hidden md:flex absolute top-0 z-10 justify-center items-center w-10 h-full hover:opacity-75 focus:opacity-80",
+        position === "left"
+          ? "left-0 bg-gradient-to-l"
+          : "right-0 bg-gradient-to-r"
       )}
       onClick={onClick}
       aria-label={`Scroll ${position}`}
@@ -59,7 +61,7 @@ const Scroller: FC<ScrollerProps> = ({
     scroll(true);
   }, [scroll]);
   return (
-    <div className={clsx("relative md:px-12", className)}>
+    <div className={clsx("relative md:px-10 md:-mx-10", className)}>
       {posState !== -1 && (
         <ChevronButton position="left" onClick={scrollLeft} />
       )}
@@ -71,13 +73,13 @@ const Scroller: FC<ScrollerProps> = ({
           "flex no-scrollbar",
           !column
             ? "overflow-x-auto overflow-y-hidden"
-            : "overflow-y-auto overflow-x-hidden"
+            : "overflow-x-hidden overflow-y-auto"
         )}
         ref={ref}
       >
         <div
           className={clsx(
-            "flex flex-shrink-0 min-w-0 min-h-0 items-stretch",
+            "flex flex-shrink-0 items-stretch min-w-0 min-h-0",
             column && "flex-col",
             classNameContent
           )}

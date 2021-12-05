@@ -11,8 +11,8 @@ const UserPage: FC<{ user: User }> = ({ user }) => {
       <UserInfo user={user} />
       <Tabs className="container">
         <TabList>
-          <Tab className="flex-1">Thoughts</Tab>
-          <Tab className="flex-1">Library</Tab>
+          <Tab>Thoughts</Tab>
+          <Tab>Library</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

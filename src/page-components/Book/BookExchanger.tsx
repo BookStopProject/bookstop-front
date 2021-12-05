@@ -38,20 +38,20 @@ const BookExchangerList: FC<
       ) : data?.inventories.length ? (
         data?.inventories.map((inventory) => (
           <div
-            className="flex flex-col items-center p-1 space-y-2 rounded-lg md:space-y-0 md:space-x-2 md:flex-row md:items-center hover:bg-highlight"
+            className="flex items-center p-1 space-x-2 rounded-lg"
             key={inventory.id}
           >
             <LocationListItem
               className="flex-1 min-w-0"
               location={inventory.location}
             />
-            <Button variant="ghost" onClick={() => onExchange(inventory)}>
+            <Button variant="tonal" onClick={() => onExchange(inventory)}>
               Exchange
             </Button>
           </div>
         ))
       ) : (
-        <p className="text-center text-opacity-75 text-foreground">
+        <p className="text-center text-on-surface-variant">
           No exchanges available
         </p>
       )}

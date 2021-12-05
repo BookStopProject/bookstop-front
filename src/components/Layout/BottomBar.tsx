@@ -16,12 +16,19 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
     <Link href={href}>
       <a
         className={clsx(
-          "flex flex-1 justify-center items-center py-3 transition-colors",
-          isActive ? "text-primary-text" : "text-opacity-25 text-primary-text"
+          "flex-1 text-center",
+          isActive ? "text-on-secondary-container" : "text-on-surface-variant"
         )}
-        aria-label={title}
       >
-        {icon}
+        <span
+          className={clsx(
+            "flex justify-center items-center mx-auto w-16 h-8 rounded-full transition-colors",
+            isActive && "bg-secondary-container"
+          )}
+        >
+          {icon}
+        </span>
+        <p className="mt-1 text-sm font-medium">{title}</p>
       </a>
     </Link>
   );
@@ -29,11 +36,15 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
 
 const BottomBar: FC = () => {
   return (
-    <div className="flex fixed bottom-0 z-20 w-full h-12 bg-primary-dark md:hidden">
-      <Tab icon={<IconHome />} href="/" title="Home" />
-      <Tab icon={<IconZap />} href="/feed" title="Feed" />
-      <Tab icon={<IconCalendarEvent />} href="/events" title="Events" />
-      <Tab icon={<IconBook />} href="/my-library" title="Library" />
+    <div className="flex md:hidden fixed bottom-0 z-20 items-center w-full h-20 bg-surface">
+      <Tab icon={<IconHome size={21} />} href="/" title="Home" />
+      <Tab icon={<IconZap size={21} />} href="/feed" title="Feed" />
+      <Tab
+        icon={<IconCalendarEvent size={21} />}
+        href="/events"
+        title="Events"
+      />
+      <Tab icon={<IconBook size={21} />} href="/my-library" title="Library" />
     </div>
   );
 };
@@ -41,5 +52,5 @@ const BottomBar: FC = () => {
 export default BottomBar;
 
 export const BottomBarPlaceholder: FC = () => {
-  return <div className="w-full h-12 md:hidden" />;
+  return <div className="md:hidden w-full h-20" />;
 };

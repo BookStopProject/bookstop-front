@@ -3,6 +3,7 @@ import { Modal } from "@/components/Modal";
 import type { InventoryClaim } from "@/graphql/gql.gen";
 import { useInventoryClaimTokenQuery } from "@/graphql/gql.gen";
 import { IconLoader } from "@tabler/icons";
+import Link from "next/link";
 import type { FC } from "react";
 import QRCode from "react-qr-code";
 
@@ -27,7 +28,7 @@ const ClaimModalContent: FC<{ claim: InventoryClaim }> = ({ claim }) => {
             value={data?.inventoryClaimToken}
           />
         ) : (
-          <p className="text-danger">
+          <p className="text-error">
             Could not load
             <br />
             Please try again
@@ -39,7 +40,7 @@ const ClaimModalContent: FC<{ claim: InventoryClaim }> = ({ claim }) => {
       </p>
       <div className="text-lg leading-tight">
         {claim.inventory.location.parentName && (
-          <p className="text-sm text-opacity-75 text-foreground">
+          <p className="text-sm text-on-surface-variant">
             {claim.inventory.location.parentName}
           </p>
         )}
@@ -56,20 +57,18 @@ const ClaimModalContent: FC<{ claim: InventoryClaim }> = ({ claim }) => {
         </a>
       </div>
       <p className="text-sm">to receive your exchanged book</p>
-      <p>
-        <span className="font-serif">
-          {claim.inventory.userBook.book.title}
-        </span>{" "}
-        <br /> <span className="text-sm">from</span> <br />{" "}
-        <span className="inline-flex items-center">
+      <p>{claim.inventory.userBook.book.title}</p>
+      <div className="text-sm">from</div>
+      <Link href={`/user/${claim.inventory.userBook.userId}`}>
+        <a className="inline-flex items-center hover:text-primary focus:text-primary">
           <Avatar
             size={4}
             src={claim.inventory.userBook.user.profileImageUrl}
             username={claim.inventory.userBook.user.name}
           />
           <span className="ml-1">{claim.inventory.userBook.user.name}</span>
-        </span>
-      </p>
+        </a>
+      </Link>
     </div>
   );
 };

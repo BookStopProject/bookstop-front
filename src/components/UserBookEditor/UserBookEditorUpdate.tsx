@@ -92,10 +92,9 @@ const UserBookEditorUpdate: FC<{ editingId: string; onDismiss(): void }> = ({
         Save
       </Button>
       <Button
-        color="danger"
         onClick={onDelete}
         fetching={fetchingDelete}
-        variant="ghost"
+        variant="tonal"
         className="mt-2 w-full"
       >
         Remove
