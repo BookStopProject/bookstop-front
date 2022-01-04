@@ -2,6 +2,9 @@
 
 Exchange books with each other, share your thoughts, participate in events, all in one stop. BookStop is the final destination for every reader.
 
+Frontend: https://github.com/hoangvvo/bookstop-front
+Backend: https://github.com/hoangvvo/bookstop-api
+
 ## Setup
 
 The following environment variable is required:
