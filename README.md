@@ -29,6 +29,14 @@ Open http://localhost:3000 with your browser to see the result.
 
 ### Self-hosted
 
+To self host BookStop, you need to start both the frontend app and the API server.
+
+#### API Server
+
+See https://github.com/hoangvvo/bookstop-api.
+
+#### Frontend application
+
 To build the app:
 
 ```bash
