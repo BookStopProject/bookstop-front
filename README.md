@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ![BookStop](https://bookstop.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-text.1e32d3ba.png&w=3840&q=75)
 
-## Getting Started
+Exchange books with each other, share your thoughts, participate in events, all in one stop. BookStop is the final destination for every reader.
 
-First, run the development server:
+## Setup
+
+The following environment variable is required:
+
+- `API_URI`: The URL of the API.
+- `APP_URI`: The URL of the app (this very app)
+
+## Development
+
+Install all dependencies using:
+
+```bash
+npm i
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Self-hosted
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To build the app:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+After building, start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Managed service
 
-## Deploy on Vercel
+We also provide a service where we set up and manage your BookStop instance with no technical knowledge needed. For inquiry, contact us through this page or the email read@bookstop.app.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contribution
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please see my [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[GPL-3.0 License](LICENSE). 
+
+By deploying your own instance, please respect the conditions of the license, such as the acknowledgement of this license in your app (eg. in the footer)
