@@ -8,7 +8,7 @@ import UserBookList from "./UserBookList";
 const MyLibraryPage: FC = () => {
   const [{ data, fetching }] = useMeQuery();
   return (
-    <div className="container">
+    <div className="container mb-4">
       <PageTitle>My Library</PageTitle>
       {fetching ? (
         <IconLoader className="mx-auto animate-spin" />

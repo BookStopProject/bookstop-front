@@ -61,6 +61,13 @@ export type Exchange = {
   userBookOld: UserBook;
 };
 
+export type HomeStats = {
+  __typename?: 'HomeStats';
+  exchangeCount: Scalars['Int'];
+  postCount: Scalars['Int'];
+  userCount: Scalars['Int'];
+};
+
 export type Inventory = {
   __typename?: 'Inventory';
   id: Scalars['ID'];
@@ -150,6 +157,7 @@ export type Query = {
   events: Array<Event>;
   exchanges: Array<Exchange>;
   foo?: Maybe<Scalars['Int']>;
+  homeStats?: Maybe<HomeStats>;
   inventories: Array<Inventory>;
   inventoryClaimToken: Scalars['String'];
   inventoryClaimsMine: Array<InventoryClaim>;
@@ -318,6 +326,11 @@ export type ExchangesQueryVariables = Exact<{
 
 
 export type ExchangesQuery = { exchanges: Array<{ __typename?: 'Exchange', id: string, userBookIdOld: string, userBookIdNew: string, exchangedAt: any, userBookOld: { __typename?: 'UserBook', id: string, bookId: string, userId: string, startedAt?: string | null | undefined, endedAt?: string | null | undefined, book: { __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined }, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any } }, userBookNew: { __typename?: 'UserBook', id: string, bookId: string, userId: string, startedAt?: string | null | undefined, endedAt?: string | null | undefined, book: { __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined }, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any } } }> };
+
+export type HomeStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeStatsQuery = { homeStats?: { __typename?: 'HomeStats', userCount: number, exchangeCount: number, postCount: number } | null | undefined };
 
 export type InventoryPartsFragment = { __typename?: 'Inventory', id: string, userBookId: string, locationId: string, removed: boolean, userBook: { __typename?: 'UserBook', id: string, bookId: string, userId: string, startedAt?: string | null | undefined, endedAt?: string | null | undefined, book: { __typename?: 'Book', id: string, title: string, subtitle?: string | null | undefined, authors: Array<string>, description: string, publishedYear: number, imageUrl?: string | null | undefined, isbn?: string | null | undefined }, user: { __typename?: 'User', id: string, name: string, description?: string | null | undefined, profileImageUrl?: string | null | undefined, createdAt: any } }, location: { __typename?: 'Location', id: string, name: string, parentName?: string | null | undefined, addressLine: string } };
 
@@ -495,6 +508,11 @@ export const ExchangesDocument = {"kind":"Document","definitions":[{"kind":"Oper
 export function useExchangesQuery(options: Omit<Urql.UseQueryArgs<ExchangesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<ExchangesQuery>({ query: ExchangesDocument, ...options });
 };
+export const HomeStatsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"homeStats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"homeStats"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userCount"}},{"kind":"Field","name":{"kind":"Name","value":"exchangeCount"}},{"kind":"Field","name":{"kind":"Name","value":"postCount"}}]}}]}}]} as unknown as DocumentNode;
+
+export function useHomeStatsQuery(options: Omit<Urql.UseQueryArgs<HomeStatsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<HomeStatsQuery>({ query: HomeStatsDocument, ...options });
+};
 export const InventoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"inventories"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"bookId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locationId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"inventories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"bookId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"bookId"}}},{"kind":"Argument","name":{"kind":"Name","value":"locationId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"InventoryParts"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Book"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"authors"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"publishedYear"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"isbn"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InventoryParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Inventory"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"userBookId"}},{"kind":"Field","name":{"kind":"Name","value":"userBook"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserBookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"locationId"}},{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LocationParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"removed"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LocationParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Location"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"parentName"}},{"kind":"Field","name":{"kind":"Name","value":"addressLine"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"User"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"profileImageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UserBookParts"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UserBook"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"bookId"}},{"kind":"Field","name":{"kind":"Name","value":"book"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BookParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"userId"}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UserParts"}}]}},{"kind":"Field","name":{"kind":"Name","value":"startedAt"}},{"kind":"Field","name":{"kind":"Name","value":"endedAt"}}]}}]} as unknown as DocumentNode;
 
 export function useInventoriesQuery(options: Omit<Urql.UseQueryArgs<InventoriesQueryVariables>, 'query'> = {}) {
@@ -582,6 +600,7 @@ export type GraphCacheKeysConfig = {
   Browse?: (data: WithTypename<Browse>) => null | string,
   Event?: (data: WithTypename<Event>) => null | string,
   Exchange?: (data: WithTypename<Exchange>) => null | string,
+  HomeStats?: (data: WithTypename<HomeStats>) => null | string,
   Inventory?: (data: WithTypename<Inventory>) => null | string,
   InventoryClaim?: (data: WithTypename<InventoryClaim>) => null | string,
   Location?: (data: WithTypename<Location>) => null | string,
@@ -601,6 +620,7 @@ export type GraphCacheResolvers = {
     search?: GraphCacheResolver<WithTypename<Query>, QuerySearchArgs, Array<WithTypename<Book> | string>>,
     events?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, Array<WithTypename<Event> | string>>,
     exchanges?: GraphCacheResolver<WithTypename<Query>, QueryExchangesArgs, Array<WithTypename<Exchange> | string>>,
+    homeStats?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, WithTypename<HomeStats> | string>,
     inventories?: GraphCacheResolver<WithTypename<Query>, QueryInventoriesArgs, Array<WithTypename<Inventory> | string>>,
     inventoryClaimsMine?: GraphCacheResolver<WithTypename<Query>, Record<string, never>, Array<WithTypename<InventoryClaim> | string>>,
     inventoryClaimToken?: GraphCacheResolver<WithTypename<Query>, QueryInventoryClaimTokenArgs, Scalars['String'] | string>,
@@ -646,6 +666,11 @@ export type GraphCacheResolvers = {
     userBookIdNew?: GraphCacheResolver<WithTypename<Exchange>, Record<string, never>, Scalars['ID'] | string>,
     userBookNew?: GraphCacheResolver<WithTypename<Exchange>, Record<string, never>, WithTypename<UserBook> | string>,
     exchangedAt?: GraphCacheResolver<WithTypename<Exchange>, Record<string, never>, Scalars['Time'] | string>
+  },
+  HomeStats?: {
+    userCount?: GraphCacheResolver<WithTypename<HomeStats>, Record<string, never>, Scalars['Int'] | string>,
+    exchangeCount?: GraphCacheResolver<WithTypename<HomeStats>, Record<string, never>, Scalars['Int'] | string>,
+    postCount?: GraphCacheResolver<WithTypename<HomeStats>, Record<string, never>, Scalars['Int'] | string>
   },
   Inventory?: {
     id?: GraphCacheResolver<WithTypename<Inventory>, Record<string, never>, Scalars['ID'] | string>,

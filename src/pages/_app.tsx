@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <Layout>
         <UserBookEditorWrapper>
           <DefaultSeo
-            titleTemplate={"%s | BookStop"}
+            titleTemplate={`%s | ${CONFIG.name}`}
             canonical={`${CONFIG.APP_URI}/`}
           />
           <Component {...pageProps} />

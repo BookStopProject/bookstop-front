@@ -28,7 +28,7 @@ const UserBookInfoModal: FC<UserBookInfoModalProps> = ({
         value={userBook.id}
       />
       <p className="mt-8 text-sm leading-tight text-center">
-        Present this QR Code to BookStop representative to check in your book
+        Present this QR Code to our representative to check in your book
       </p>
     </Modal>
   );

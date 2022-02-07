@@ -1,5 +1,5 @@
 import IconZap from "@/assets/icons/zap.svg";
-import { IconBook, IconCalendarEvent, IconHome } from "@tabler/icons";
+import { IconBook, IconCalendarEvent, IconSearch } from "@tabler/icons";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -37,7 +37,7 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
 const BottomBar: FC = () => {
   return (
     <div className="flex md:hidden fixed bottom-0 z-20 items-center w-full h-20 bg-surface">
-      <Tab icon={<IconHome size={21} />} href="/" title="Home" />
+      <Tab icon={<IconSearch size={21} />} href="/" title="Browse" />
       <Tab icon={<IconZap size={21} />} href="/feed" title="Feed" />
       <Tab
         icon={<IconCalendarEvent size={21} />}

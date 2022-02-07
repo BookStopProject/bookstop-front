@@ -50,6 +50,10 @@ html {
   @apply bg-background text-on-background;
 }
 
+main {
+  min-height: calc(100vh - 64px - 110px);
+}
+
 @import "@reach/menu-button/styles.css";
 
 [data-reach-popover] {

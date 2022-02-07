@@ -36,7 +36,7 @@ const ClaimModalContent: FC<{ claim: InventoryClaim }> = ({ claim }) => {
         )}
       </div>
       <p className="text-sm leading-tight">
-        Present this QR Code to BookStop representative at
+        Present this QR Code to our representative at
       </p>
       <div className="text-lg leading-tight">
         {claim.inventory.location.parentName && (

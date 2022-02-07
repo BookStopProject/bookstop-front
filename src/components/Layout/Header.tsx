@@ -4,7 +4,12 @@ import CONFIG from "@/config";
 import { PARAM_AUTH_SIGNOUT } from "@/graphql/authHook";
 import { useMeQuery } from "@/graphql/gql.gen";
 import { Menu, MenuButton, MenuItem, MenuList } from "@reach/menu-button";
-import { IconBook, IconCalendarEvent, IconCoin, IconHome } from "@tabler/icons";
+import {
+  IconBook,
+  IconCalendarEvent,
+  IconCoin,
+  IconSearch,
+} from "@tabler/icons";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,7 +46,7 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
 const Tabs: FC = () => {
   return (
     <div className="hidden md:flex items-center space-x-4">
-      <Tab icon={<IconHome />} href="/" title="Home" />
+      <Tab icon={<IconSearch />} href="/" title="Browse" />
       <Tab icon={<IconZap />} href="/feed" title="Feed" />
       <Tab icon={<IconCalendarEvent />} href="/events" title="Events" />
       <Tab icon={<IconBook />} href="/my-library" title="Library" />

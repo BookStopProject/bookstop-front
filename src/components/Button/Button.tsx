@@ -1,6 +1,7 @@
 import { IconLoader } from "@tabler/icons";
 import clsx from "clsx";
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { forwardRef } from "react";
 
 interface ButtonProps {
   variant?: "filled" | "tonal";
@@ -9,20 +10,25 @@ interface ButtonProps {
   fetching?: boolean;
   disabled?: boolean;
   left?: ReactNode;
+  children?: ReactNode;
 }
 
-const Button: FC<ButtonProps> = ({
-  variant = "filled",
-  children,
-  className,
-  onClick,
-  fetching,
-  disabled,
-  left,
-}) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    variant = "filled",
+    children,
+    className,
+    onClick,
+    fetching,
+    disabled,
+    left,
+  },
+  ref
+) {
   disabled = disabled || fetching;
   return (
     <button
+      ref={ref}
       className={clsx(
         `flex overflow-hidden relative justify-center items-center px-6 space-x-2 h-10 rounded-full focus-visible:ring-2 focus:outline-none`,
         variant === "filled" &&
@@ -37,7 +43,7 @@ const Button: FC<ButtonProps> = ({
         className
       )}
       onClick={onClick}
-      disabled={fetching || disabled}
+      disabled={disabled}
     >
       {fetching ? (
         <span className="animate-spin">
@@ -46,9 +52,9 @@ const Button: FC<ButtonProps> = ({
       ) : (
         left
       )}
-      <span className="text-sm font-medium">{children}</span>
+      <span className="text-sm font-medium whitespace-nowrap">{children}</span>
     </button>
   );
-};
+});
 
 export default Button;
