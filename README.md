@@ -1,9 +1,14 @@
-# ![BookStop](https://bookstop.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-text.1e32d3ba.png&w=3840&q=75)
+# ![BookStop](https://raw.githubusercontent.com/BookStopProject/bookstop-home/main/src/assets/logo-text-original.png)
 
 Exchange books with each other, share your thoughts, participate in events, all in one stop. BookStop is the final destination for every reader.
 
-Frontend: https://github.com/BookStopProject/bookstop-front
-Backend: https://github.com/BookStopProject/bookstop-api
+Website: https://bookstop.app
+
+| Codebase                                                            |                Description                 |
+| :------------------------------------------------------------------ | :----------------------------------------: |
+| [bookstop-front](https://github.com/BookStopProject/bookstop-front) |        Next.js Frontend Application        |
+| [bookstop-api](https://github.com/BookStopProject/bookstop-api)     | Golang API Server (GraphQL) and Admin Page |
+| [bookstop-home](https://github.com/BookStopProject/bookstop-home)   |              Preact homepage               |
 
 ## Setup
 
