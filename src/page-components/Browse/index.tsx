@@ -11,12 +11,7 @@ const BrowsePage: FC = () => {
       <SectionSearch />
       <div className="mb-4 space-y-10">
         {data?.browses.map((browse) => (
-          <BookListSection
-            key={browse.id}
-            title={browse.name}
-            description={browse.description}
-            browseId={browse.id}
-          />
+          <BookListSection key={browse.id} browse={browse} />
         ))}
       </div>
     </>

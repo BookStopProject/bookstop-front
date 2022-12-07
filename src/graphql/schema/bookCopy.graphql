@@ -1,0 +1,10 @@
+fragment BookCopyParts on BookCopy {
+  id
+  condition
+  book {
+    ...BookParts
+  }
+  location {
+    ...LocationParts
+  }
+}

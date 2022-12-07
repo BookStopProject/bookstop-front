@@ -1,5 +1,7 @@
+import type { Book } from "@/graphql/gql.gen";
 import {
   useBookQuery,
+  useMeQuery,
   useUserBookAddMutation,
   useUserBooksQuery,
 } from "@/graphql/gql.gen";
@@ -10,18 +12,23 @@ import toast from "react-hot-toast";
 import { Button } from "../Button";
 import UserBookEditorDate from "./UserBookEditorDate";
 
-const UserBookEditorAdder: FC<{ bookId: string; onDismiss(): void }> = ({
+const UserBookEditorAdder: FC<{ bookId: Book["id"]; onDismiss(): void }> = ({
   bookId,
   onDismiss,
 }) => {
   const [{ fetching: fetchingGet, data: dataGet }] = useBookQuery({
     variables: {
-      id: bookId,
+      id: String(bookId),
     },
   });
 
+  const [{ data: dataMe }] = useMeQuery();
+
   const [{ data: dataUserBooks, fetching: fetchingUserBooks }] =
-    useUserBooksQuery({ variables: { mine: true } });
+    useUserBooksQuery({
+      variables: { userId: dataMe?.me?.id },
+      pause: !dataMe?.me?.id,
+    });
 
   const [{ fetching }, userBookAdd] = useUserBookAddMutation();
 
@@ -32,7 +39,9 @@ const UserBookEditorAdder: FC<{ bookId: string; onDismiss(): void }> = ({
 
   const onSubmit = useCallback(async () => {
     if (
-      dataUserBooks?.userBooks.some((userBook) => userBook.bookId === bookId)
+      dataUserBooks?.userBooks.some(
+        (userBook) => userBook.bookId === Number(bookId)
+      )
     ) {
       if (
         window.confirm(
@@ -45,8 +54,8 @@ const UserBookEditorAdder: FC<{ bookId: string; onDismiss(): void }> = ({
 
     const result = await userBookAdd({
       bookId,
-      startedAt: start || null,
-      endedAt: end || null,
+      startDate: start || null,
+      endDate: end || null,
     });
     if (!result.error) {
       toast.success("Added to My library");

@@ -6,6 +6,7 @@ import type { FC } from "react";
 
 const BookInfo: FC<{ userBook: UserBook }> = ({ userBook }) => {
   const book = userBook.book;
+  if (!book || !userBook.user) return null;
   return (
     <div className="container flex flex-col py-4 px-2 mx-auto max-w-6xl">
       <div className="mx-auto w-48">
@@ -16,7 +17,7 @@ const BookInfo: FC<{ userBook: UserBook }> = ({ userBook }) => {
           <a className="flex justify-center items-center mb-2">
             <Avatar
               size={6}
-              src={userBook.user.profileImageUrl}
+              src={userBook.user.profilePicture}
               username={userBook.user.name}
             />
             <span className="ml-1">
@@ -32,7 +33,7 @@ const BookInfo: FC<{ userBook: UserBook }> = ({ userBook }) => {
             </h1>
           </a>
         </Link>
-        <div className="text-on-surface-variant">{book.authors.join(", ")}</div>
+        <div className="text-on-surface-variant">{book.author?.name}</div>
       </header>
     </div>
   );

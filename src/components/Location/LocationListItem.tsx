@@ -12,11 +12,8 @@ const LocationListItem: FC<LocationListItemProps> = ({
 }) => {
   return (
     <div className={className}>
-      <p className="font-bold">
-        {location.name}{" "}
-        <span className="text-on-surface-variant">- {location.parentName}</span>
-      </p>
-      <p className="text-sm font-light truncate">{location.addressLine}</p>
+      <p className="font-bold">{location.name}</p>
+      <p className="text-sm font-light truncate">{location.address}</p>
     </div>
   );
 };

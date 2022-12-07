@@ -1,9 +1,9 @@
 fragment UserParts on User {
   id
   name
-  description
-  profileImageUrl
-  createdAt
+  bio
+  profilePicture
+  creationTime
 }
 
 query me {
@@ -13,8 +13,8 @@ query me {
   }
 }
 
-mutation meUpdate($name: String, $description: String) {
-  meUpdate(name: $name, description: $description) {
+mutation meUpdate($name: String!, $bio: String!) {
+  meUpdate(name: $name, bio: $bio) {
     ...UserParts
   }
 }

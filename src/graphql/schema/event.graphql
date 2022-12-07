@@ -1,14 +1,19 @@
 query events {
   events {
     id
-    title
+    name
     description
-    href
-    userId
-    user {
-      ...UserParts
-    }
-    startedAt
-    endedAt
+    startTime
+    endTime
+  }
+}
+
+query event($id: ID!) {
+  event(id: $id) {
+    id
+    name
+    description
+    startTime
+    endTime
   }
 }

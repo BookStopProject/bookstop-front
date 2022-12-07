@@ -2,23 +2,16 @@ fragment BookParts on Book {
   id
   title
   subtitle
-  authors
+  imageUrl
   description
   publishedYear
-  imageUrl
-  isbn
-}
-
-fragment BrowseParts on Browse {
-  id
-  name
-  description
-  imageUrl
-}
-
-query books($ids: [ID!]!) {
-  books(ids: $ids) {
-    ...BookParts
+  author {
+    id
+    name
+  }
+  genre {
+    id
+    name
   }
 }
 
@@ -28,26 +21,44 @@ query book($id: ID!) {
   }
 }
 
+query bookSearch($query: String!, $limit: Int!, $skip: Int!) {
+  bookSearch(query: $query, limit: $limit, skip: $skip) {
+    ...BookParts
+  }
+}
+
+query author($id: ID!) {
+  author(id: $id) {
+    id
+    name
+  }
+}
+
+query genre($id: ID!) {
+  genre(id: $id) {
+    id
+    name
+  }
+}
+
+query genres {
+  genres {
+    id
+    name
+  }
+}
+
+fragment BrowseParts on Browse {
+  id
+  name
+  description
+  books {
+    ...BookParts
+  }
+}
+
 query browses {
   browses {
     ...BrowseParts
-  }
-}
-
-query browse($id: ID!) {
-  browse(id: $id) {
-    ...BrowseParts
-  }
-}
-
-query browseBooks($id: ID!) {
-  browseBooks(id: $id) {
-    ...BookParts
-  }
-}
-
-query search($query: String!, $limit: Int!, $skip: Int) {
-  search(query: $query, limit: $limit, skip: $skip) {
-    ...BookParts
   }
 }

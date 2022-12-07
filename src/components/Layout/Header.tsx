@@ -78,7 +78,7 @@ const Auth: FC = () => {
           <MenuButton>
             <Avatar
               size={10}
-              src={data.me.profileImageUrl}
+              src={data.me.profilePicture}
               username={data.me.name}
             />
           </MenuButton>

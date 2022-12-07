@@ -16,13 +16,12 @@ const BookNextPage: NextPage<PageProps> = ({ book }) => {
     <>
       <NextSeo
         canonical={`${CONFIG.APP_URI}/book/${book.id}`}
-        title={`${book.title} - ${book.authors.join(", ")}`}
+        title={`${book.title} - ${book.author?.name}`}
         openGraph={{
           type: "book",
           book: {
-            authors: book.authors,
-            isbn: book.isbn || undefined,
-            releaseDate: book.publishedYear.toString(),
+            authors: [book.author?.name].filter(Boolean) as string[],
+            releaseDate: book.publishedYear?.toString(),
           },
           images: book.imageUrl
             ? [{ url: book.imageUrl, alt: book.title }]
@@ -41,27 +40,29 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageProps, { bookId: string }> =
-  async (context) => {
-    const bookId = context.params?.bookId;
-    const response = await fetch(`${CONFIG.API_URI}/graphql`, {
-      headers: { "content-type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        query: print(BookDocument),
-        variables: { id: bookId },
-      }),
-    }).then((r) => r.json());
-    const book = response.data.book;
-    if (!book)
-      return {
-        notFound: true,
-        revalidate: true,
-      };
+export const getStaticProps: GetStaticProps<
+  PageProps,
+  { bookId: Book["id"] }
+> = async (context) => {
+  const bookId = context.params?.bookId;
+  const response = await fetch(`${CONFIG.API_URI}/graphql`, {
+    headers: { "content-type": "application/json" },
+    method: "POST",
+    body: JSON.stringify({
+      query: print(BookDocument),
+      variables: { id: bookId },
+    }),
+  }).then((r) => r.json());
+  const book = response.data.book;
+  if (!book)
     return {
-      props: { book },
-      revalidate: false,
+      notFound: true,
+      revalidate: true,
     };
+  return {
+    props: { book },
+    revalidate: false,
   };
+};
 
 export default BookNextPage;

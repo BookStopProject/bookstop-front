@@ -1,6 +1,6 @@
 import { BookItem } from "@/components/Book";
 import { Button } from "@/components/Button";
-import { useSearchQuery } from "@/graphql/gql.gen";
+import { useBookSearchQuery } from "@/graphql/gql.gen";
 import { IconLoader } from "@tabler/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ const SearchResult: FC = () => {
   const query = (String(router.query.q) || "").trim();
   const [skip, setSkip] = useState(0);
   const loadMore = useCallback(() => setSkip((sk) => sk + LIMIT + 1), []);
-  const [{ data, fetching }] = useSearchQuery({
+  const [{ data, fetching }] = useBookSearchQuery({
     variables: { query, limit: LIMIT, skip },
     pause: !query,
   });
@@ -24,10 +24,10 @@ const SearchResult: FC = () => {
         <div className="flex justify-center p-8 animate-spin">
           <IconLoader />
         </div>
-      ) : data?.search.length ? (
+      ) : data?.bookSearch.length ? (
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-4">
-            {data?.search.map((book) => (
+            {data?.bookSearch.map((book) => (
               <Link key={book.id} href={`/book/${book.id}`}>
                 <a className="hover:opacity-75 focus:opacity-80 transition-opacity focus:outline-none">
                   <BookItem book={book} />

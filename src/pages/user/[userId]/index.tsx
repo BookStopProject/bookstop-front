@@ -24,11 +24,11 @@ const UserNextPage: NextPage<PageProps> = (props) => {
       <NextSeo
         canonical={`${CONFIG.APP_URI}/book/${user.id}`}
         title={user.name}
-        description={user.description || undefined}
+        description={user.bio || undefined}
         openGraph={{
           type: "profile",
-          images: user.profileImageUrl
-            ? [{ url: user.profileImageUrl, alt: user.name }]
+          images: user.profilePicture
+            ? [{ url: user.profilePicture, alt: user.name }]
             : undefined,
         }}
       />
@@ -44,27 +44,29 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PageProps, { userId: string }> =
-  async (context) => {
-    const userId = context.params?.userId;
-    const response = await fetch(`${CONFIG.API_URI}/graphql`, {
-      headers: { "content-type": "application/json" },
-      method: "POST",
-      body: JSON.stringify({
-        query: print(UserDocument),
-        variables: { id: userId },
-      }),
-    }).then((r) => r.json());
-    const user = response.data.user;
-    if (!user)
-      return {
-        notFound: true,
-        revalidate: true,
-      };
+export const getStaticProps: GetStaticProps<
+  PageProps,
+  { userId: string }
+> = async (context) => {
+  const userId = context.params?.userId;
+  const response = await fetch(`${CONFIG.API_URI}/graphql`, {
+    headers: { "content-type": "application/json" },
+    method: "POST",
+    body: JSON.stringify({
+      query: print(UserDocument),
+      variables: { id: userId },
+    }),
+  }).then((r) => r.json());
+  const user = response.data.user;
+  if (!user)
     return {
-      props: { user },
-      revalidate: 60 * 60 * 6,
+      notFound: true,
+      revalidate: true,
     };
+  return {
+    props: { user },
+    revalidate: 60 * 60 * 6,
   };
+};
 
 export default UserNextPage;

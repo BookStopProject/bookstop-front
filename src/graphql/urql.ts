@@ -38,43 +38,33 @@ export function newClient() {
                 __typename: "UserBook",
               };
             },
-            search: simplePagination({
+            bookSearch: simplePagination({
               mergeMode: "after",
               limitArgument: "limit",
               offsetArgument: "skip",
             }),
-            thoughts: simplePagination({
+            posts: simplePagination({
               mergeMode: "before",
               limitArgument: "limit",
               offsetArgument: "before",
             }),
           },
           User: {
-            createdAt({ createdAt }) {
-              return new Date(createdAt);
+            creationTime({ creationTime }) {
+              return new Date(creationTime);
             },
           },
-          InventoryClaim: {
-            claimedAt({ claimedAt }) {
-              return new Date(claimedAt);
-            },
-          },
-          Exchange: {
-            exchangedAt({ exchangedAt }) {
-              return new Date(exchangedAt);
-            },
-          },
-          Thought: {
-            createdAt({ createdAt }) {
-              return new Date(createdAt);
+          Post: {
+            creationTime({ creationTime }) {
+              return new Date(creationTime);
             },
           },
           Event: {
-            startedAt({ startedAt }) {
-              return new Date(startedAt);
+            startTime({ startTime }) {
+              return new Date(startTime);
             },
-            endedAt({ endedAt }) {
-              return new Date(endedAt);
+            endTime({ endTime }) {
+              return new Date(endTime);
             },
           },
         },
@@ -82,7 +72,7 @@ export function newClient() {
           Mutation: {
             userBookAdd(parent, args, cache) {
               cache.invalidate("Query", "userBooks", {
-                userId: parent.userBookAdd.userId as string,
+                userId: parent.userBookAdd.userId!,
               });
               cache.invalidate("Query", "userBooks", {
                 mine: true,
@@ -91,19 +81,8 @@ export function newClient() {
             userBookDelete(parent, args, cache) {
               cache.invalidate({ __typename: "UserBook", id: args.id });
             },
-            inventoryClaimDo(parent, args, cache) {
-              cache.invalidate("Query", "me");
-              if (parent.inventoryClaimDo.inventory) {
-                cache.invalidate("Query", "inventories", {
-                  bookId: parent.inventoryClaimDo.inventory.userBook.bookId,
-                });
-                cache.invalidate("Query", "inventories", {
-                  locationId: parent.inventoryClaimDo.inventory.locationId,
-                });
-              }
-            },
-            thoughtCreate(parent, args, cache) {
-              cache.invalidate("Query", "thoughts");
+            postCreate(parent, args, cache) {
+              cache.invalidate("Query", "posts");
             },
           },
         },

@@ -23,7 +23,7 @@ const UserBookNextPage: NextPage<PageProps> = (props) => {
     <>
       <NextSeo
         canonical={`${CONFIG.APP_URI}/user/${userBook.userId}/book/${userBook.id}`}
-        title={`${userBook.user.name}'s ${userBook.book.title}`}
+        title={`${userBook.user?.name}'s ${userBook.book?.title}`}
       />
       <UserBookPage userBook={userBook} />
     </>
@@ -44,12 +44,13 @@ export const getServerSideProps: GetServerSideProps<
       variables: { id: userBookId },
     }),
   }).then((r) => r.json());
+  console.log(JSON.stringify(response, undefined, 4));
   const userBook: UserBook | null = response.data.userBook;
   if (!userBook)
     return {
       notFound: true,
     };
-  if (userBook.userId !== userId) {
+  if (userBook.userId !== Number(userId)) {
     return {
       redirect: {
         destination: `${CONFIG.APP_URI}/user/${userBook.userId}/book/${userBook.id}`,

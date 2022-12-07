@@ -23,7 +23,7 @@ const UserBookActions: FC<{ userBook: UserBook }> = ({ userBook }) => {
           Edit
         </Button>
         <Button onClick={present} variant="tonal">
-          Check in
+          Trade in
         </Button>
       </div>
       <UserBookInfoModal

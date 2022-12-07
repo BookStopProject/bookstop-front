@@ -1,12 +1,17 @@
 fragment LocationParts on Location {
   id
   name
-  parentName
-  addressLine
+  address
 }
 
 query locations {
   locations {
+    ...LocationParts
+  }
+}
+
+query location($id: ID!) {
+  location(id: $id) {
     ...LocationParts
   }
 }
