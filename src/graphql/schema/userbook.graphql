@@ -29,7 +29,9 @@ query userBooks($userId: ID) {
 
 mutation userBookAdd($bookId: ID!, $startDate: String, $endDate: String) {
   userBookAdd(bookId: $bookId, startDate: $startDate, endDate: $endDate) {
-    ...UserBookParts
+    id
+    bookId
+    userId
   }
 }
 

@@ -23,7 +23,7 @@ const UserBookNextPage: NextPage<PageProps> = (props) => {
     <>
       <NextSeo
         canonical={`${CONFIG.APP_URI}/user/${userBook.userId}/book/${userBook.id}`}
-        title={`${userBook.user?.name}'s ${userBook.book?.title}`}
+        title={`${userBook.user.name}'s ${userBook.book.title}`}
       />
       <UserBookPage userBook={userBook} />
     </>

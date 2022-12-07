@@ -81,7 +81,7 @@ const UserBookEditorUpdate: FC<{ editingId: string; onDismiss(): void }> = ({
         setStart={setStart}
         end={end}
         setEnd={setEnd}
-        bookName={dataGet.userBook.book?.title || ""}
+        bookName={dataGet.userBook.book.title}
       />
       <Button
         onClick={onSubmit}

@@ -58,8 +58,8 @@ const PostWriterContent: FC<{ onDismiss(): void; me: User }> = ({
           Mention a book
         </option>
         {dataUserBooks?.userBooks.map((userBook) => (
-          <option key={userBook.id} value={userBook.book?.id}>
-            {userBook.book?.title} - {userBook.book?.author?.name}
+          <option key={userBook.id} value={userBook.book.id}>
+            {userBook.book.title} - {userBook.book.author?.name}
           </option>
         ))}
       </select>

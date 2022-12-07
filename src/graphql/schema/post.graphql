@@ -25,7 +25,10 @@ query post($id: ID!) {
 
 mutation postCreate($text: String!, $bookId: ID!, $isRecommending: Boolean!) {
   postCreate(text: $text, bookId: $bookId, isRecommending: $isRecommending) {
-    ...PostParts
+    id
+    text
+    isRecommending
+    creationTime
   }
 }
 

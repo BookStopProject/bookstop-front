@@ -16,7 +16,7 @@ const UserBookInfoModal: FC<UserBookInfoModalProps> = ({
 }) => {
   return (
     <Modal
-      title={`${userBook.user?.name}'s ${userBook.book?.title}`}
+      title={`${userBook.user.name}'s ${userBook.book.title}`}
       visible={visible}
       onDismiss={onDismiss}
     >
