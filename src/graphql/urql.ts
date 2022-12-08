@@ -72,6 +72,11 @@ export function newClient() {
               return new Date(creationTime);
             },
           },
+          Invoice: {
+            creationTime({ creationTime }) {
+              return new Date(creationTime);
+            },
+          },
         },
         updates: {
           Mutation: {

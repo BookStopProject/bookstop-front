@@ -1,11 +1,15 @@
 fragment InvoiceParts on Invoice {
   id
   creationTime
+  entries {
+    ...InvoiceEntryParts
+  }
 }
 
 fragment InvoiceEntryParts on InvoiceEntry {
   invoiceId
   bookCopyId
+  credit
   bookCopy {
     ...BookCopyParts
   }
@@ -41,7 +45,5 @@ query meTradeIns {
 }
 
 mutation exchange($bookCopyIds: [ID!]!) {
-  exchange(bookCopyIds: $bookCopyIds) {
-    ...InvoiceParts
-  }
+  exchange(bookCopyIds: $bookCopyIds)
 }

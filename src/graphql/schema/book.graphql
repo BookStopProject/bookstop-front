@@ -13,6 +13,8 @@ fragment BookParts on Book {
     id
     name
   }
+  exchangeCredit
+  tradeinCredit
 }
 
 query book($id: ID!) {

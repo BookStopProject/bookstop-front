@@ -9,6 +9,7 @@ import {
   IconCalendarEvent,
   IconCoin,
   IconSearch,
+  IconShoppingCart,
 } from "@tabler/icons";
 import clsx from "clsx";
 import Image from "next/image";
@@ -18,6 +19,7 @@ import type { FC, ReactNode } from "react";
 import { useCallback } from "react";
 import { Avatar } from "../Avatar";
 import { Button } from "../Button";
+import { useCheckoutContext } from "../Checkout";
 
 const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
   href,
@@ -67,6 +69,8 @@ const Auth: FC = () => {
     window.location.replace(tempUrl);
   }, []);
 
+  const { bookCopies } = useCheckoutContext();
+
   if (data?.me) {
     return (
       <div className="flex items-center space-x-2">
@@ -74,6 +78,13 @@ const Auth: FC = () => {
           <IconCoin />
           <span className="ml-1 font-bold">{data.me.credit}</span>
         </div>
+        <button
+          onClick={() => router.push("/checkout")}
+          className="flex items-center px-4 h-10 text-secondary bg-surface-variant rounded-full"
+        >
+          <IconShoppingCart />
+          <span className="ml-1 font-bold">{bookCopies.length}</span>
+        </button>
         <Menu>
           <MenuButton>
             <Avatar
