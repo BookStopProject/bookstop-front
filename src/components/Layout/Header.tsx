@@ -86,8 +86,11 @@ const Auth: FC = () => {
             <MenuItem onSelect={() => router.push(`/user/${data.me!.id}`)}>
               Profile
             </MenuItem>
-            <MenuItem onSelect={() => router.push("/my-exchange")}>
-              Exchanges
+            <MenuItem onSelect={() => router.push("/my-invoices")}>
+              Invoices
+            </MenuItem>
+            <MenuItem onSelect={() => router.push("/my-tradeins")}>
+              Tradeins
             </MenuItem>
             <MenuItem onSelect={() => router.push("/settings")}>
               Settings

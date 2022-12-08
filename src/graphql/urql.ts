@@ -67,6 +67,11 @@ export function newClient() {
               return new Date(endTime);
             },
           },
+          TradeIn: {
+            creationTime({ creationTime }) {
+              return new Date(creationTime);
+            },
+          },
         },
         updates: {
           Mutation: {

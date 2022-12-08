@@ -1,10 +1,6 @@
 fragment InvoiceParts on Invoice {
   id
   creationTime
-  location {
-    id
-    name
-  }
 }
 
 fragment InvoiceEntryParts on InvoiceEntry {
@@ -44,8 +40,8 @@ query meTradeIns {
   }
 }
 
-mutation exchange($bookCopyId: [ID!]!) {
-  exchange(bookCopyId: $bookCopyId) {
+mutation exchange($bookCopyIds: [ID!]!) {
+  exchange(bookCopyIds: $bookCopyIds) {
     ...InvoiceParts
   }
 }

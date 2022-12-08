@@ -44,7 +44,6 @@ export const getServerSideProps: GetServerSideProps<
       variables: { id: userBookId },
     }),
   }).then((r) => r.json());
-  console.log(JSON.stringify(response, undefined, 4));
   const userBook: UserBook | null = response.data.userBook;
   if (!userBook)
     return {
