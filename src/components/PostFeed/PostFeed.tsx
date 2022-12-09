@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { Thought } from "@/graphql/gql.gen";
+import type { Post } from "@/graphql/gql.gen";
 import {
   useMeQuery,
-  useThoughtDeleteMutation,
-  useThoughtsQuery,
+  usePostDeleteMutation,
+  usePostsQuery,
 } from "@/graphql/gql.gen";
 import { format } from "@lukeed/ms";
 import { IconLoader, IconTrash } from "@tabler/icons";
@@ -34,70 +34,69 @@ function useInViewFallback(options?: IntersectionOptions) {
 
 const LIMIT = 20;
 
-const ThoughtItem: FC<{ thought: Thought }> = ({ thought }) => {
+const PostItem: FC<{ post: Post }> = ({ post }) => {
   const timeStr = useMemo(() => {
-    return format(Date.now() - thought.createdAt.getTime()) + " ago";
-  }, [thought]);
+    return format(Date.now() - post.creationTime.getTime()) + " ago";
+  }, [post]);
   const [{ data: dataMe }] = useMeQuery();
-  const [{ fetching: fetchingDelete }, thoughtDelete] =
-    useThoughtDeleteMutation();
+  const [{ fetching: fetchingDelete }, postDelete] = usePostDeleteMutation();
   const onDelete = useCallback(async () => {
-    if (!window.confirm("Are you sure you want to delete this thought?")) {
+    if (!window.confirm("Are you sure you want to delete this post?")) {
       return;
     }
-    const result = await thoughtDelete({ id: thought.id });
+    const result = await postDelete({ id: post.id });
     if (!result.error) {
-      toast.success("Thought has been removed");
+      toast.success("Post has been removed");
     }
-  }, [thought, thoughtDelete]);
+  }, [post, postDelete]);
 
   return (
     <Card variant="filled" className="relative py-6 px-8">
       <div className="flex">
         <Avatar
           size={10}
-          src={thought.user.profileImageUrl}
-          username={thought.user.name}
+          src={post.user.profilePicture}
+          username={post.user.name}
         />
         <div className="pl-2">
-          <Link href={`/user/${thought.user.id}`}>
+          <Link href={`/user/${post.user.id}`}>
             <a className="font-medium leading-none text-on-surface">
-              {thought.user.name}
+              {post.user.name}
             </a>
           </Link>
           <time
-            dateTime={thought.createdAt.toJSON()}
+            dateTime={post.creationTime.toJSON()}
             className="block text-sm leading-none text-on-surface"
           >
             {timeStr}
           </time>
         </div>
       </div>
-      <p className="mt-4 whitespace-pre-line">{thought.text}</p>
-      {thought.book && (
+      <p className="mt-4 whitespace-pre-line">{post.text}</p>
+      {post.book && (
         <div className="flex mt-3">
           <div className="w-12">
-            <BookItemImage book={thought.book} />
+            <BookItemImage book={post.book} />
           </div>
           <div className="flex-1 py-2 pl-4 min-w-0">
             <div className="font-bold leading-tight text-on-surface">
-              {thought.book.title}
+              {post.book.title}
             </div>
             <div className="mb-1 text-sm leading-tight text-on-surface-variant">
-              {thought.book.authors.join(", ")}
+              {post.book.author?.name}
             </div>
-            <Link href={`/book/${thought.bookId}`} passHref>
+            <Link href={`/book/${post.book.id}`} passHref>
               <A className="text-sm font-bold">View Book</A>
             </Link>
           </div>
         </div>
       )}
-      {dataMe?.me?.id === thought.userId && (
+      {dataMe?.me?.id === post.user.id && (
         <button
           disabled={fetchingDelete}
           onClick={onDelete}
           className="absolute top-2 right-2"
-          aria-label={`Remove post: ${thought.text}`}
+          aria-label={`Remove post: ${post.text}`}
         >
           <IconTrash width={18} height={18} />
         </button>
@@ -106,9 +105,9 @@ const ThoughtItem: FC<{ thought: Thought }> = ({ thought }) => {
   );
 };
 
-const ThoughtFeed: FC<{ userId?: string }> = ({ userId }) => {
+const PostFeed: FC<{ userId?: string }> = ({ userId }) => {
   const [before, setBefore] = useState<undefined | number>(999999);
-  const [{ data, fetching }] = useThoughtsQuery({
+  const [{ data, fetching }] = usePostsQuery({
     variables: {
       userId,
       limit: LIMIT,
@@ -117,13 +116,13 @@ const ThoughtFeed: FC<{ userId?: string }> = ({ userId }) => {
   });
   const [ref, isInView] = useInViewFallback();
   useEffect(() => {
-    if (!data?.thoughts.length || !isInView) return;
-    setBefore(Number(data.thoughts[data.thoughts.length - 1].id));
-  }, [isInView, data?.thoughts]);
+    if (!data?.posts.length || !isInView) return;
+    setBefore(Number(data.posts[data.posts.length - 1].id));
+  }, [isInView, data?.posts]);
   return (
     <div className="py-8 mx-auto space-y-4 max-w-3xl">
-      {data?.thoughts.map((t) => (
-        <ThoughtItem key={t.id} thought={t} />
+      {data?.posts.map((t) => (
+        <PostItem key={t.id} post={t} />
       ))}
       {fetching && <IconLoader className="mx-auto animate-spin" />}
       {/* @ts-ignore */}
@@ -132,4 +131,4 @@ const ThoughtFeed: FC<{ userId?: string }> = ({ userId }) => {
   );
 };
 
-export default ThoughtFeed;
+export default PostFeed;

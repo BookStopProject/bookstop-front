@@ -18,7 +18,7 @@ export const BookItemImage: FC<{ book: Book; short?: boolean }> = ({
   >
     <img
       src={book.imageUrl || "/images/book-default.svg"}
-      alt={`Title: ${book.title}, Author: ${book.authors.join(", ")}`}
+      alt={`Title: ${book.title}, Author: ${book.author?.name}`}
       className="object-cover"
     />
   </div>
@@ -34,7 +34,7 @@ export const BookItemMeta: FC<{ book: Book; className?: string }> = ({
         {book.title}
       </p>
       <p className="mt-1 text-sm leading-tight text-on-surface-variant truncate">
-        {book.authors.join(", ")}
+        {book.author?.name}
       </p>
     </div>
   );

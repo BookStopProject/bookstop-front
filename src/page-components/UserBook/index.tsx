@@ -11,7 +11,7 @@ const UserBookPage: FC<{ userBook: UserBook }> = ({ userBook }) => {
   return (
     <>
       <BookInfo userBook={userBook} />
-      {dataMe?.me?.id === userBook.userId && (
+      {dataMe?.me && Number(dataMe.me.id) === userBook.userId && (
         <UserBookActions userBook={userBook} />
       )}
       <UserBookDates userBook={userBook} />

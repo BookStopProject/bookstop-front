@@ -8,8 +8,11 @@ fragment UserBookParts on UserBook {
   user {
     ...UserParts
   }
-  startedAt
-  endedAt
+  owners {
+    ...UserParts
+  }
+  startDate
+  endDate
 }
 
 query userBook($id: ID!) {
@@ -18,20 +21,22 @@ query userBook($id: ID!) {
   }
 }
 
-query userBooks($userId: ID, $mine: Boolean) {
-  userBooks(userId: $userId, mine: $mine) {
+query userBooks($userId: ID) {
+  userBooks(userId: $userId) {
     ...UserBookParts
   }
 }
 
-mutation userBookAdd($bookId: ID!, $startedAt: String, $endedAt: String) {
-  userBookAdd(bookId: $bookId, startedAt: $startedAt, endedAt: $endedAt) {
-    ...UserBookParts
+mutation userBookAdd($bookId: ID!, $startDate: String, $endDate: String) {
+  userBookAdd(bookId: $bookId, startDate: $startDate, endDate: $endDate) {
+    id
+    bookId
+    userId
   }
 }
 
-mutation userBookEdit($id: ID!, $startedAt: String, $endedAt: String) {
-  userBookEdit(id: $id, startedAt: $startedAt, endedAt: $endedAt) {
+mutation userBookEdit($id: ID!, $startDate: String, $endDate: String) {
+  userBookEdit(id: $id, startDate: $startDate, endDate: $endDate) {
     ...UserBookParts
   }
 }

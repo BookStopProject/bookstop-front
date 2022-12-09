@@ -1,0 +1,43 @@
+fragment PostParts on Post {
+  id
+  text
+  isRecommending
+  creationTime
+  book {
+    ...BookParts
+  }
+  user {
+    ...UserParts
+  }
+}
+
+query posts($userId: ID, $bookId: ID, $limit: Int!, $before: Int) {
+  posts(userId: $userId, bookId: $bookId, limit: $limit, before: $before) {
+    ...PostParts
+  }
+}
+
+query post($id: ID!) {
+  post(id: $id) {
+    ...PostParts
+  }
+}
+
+mutation postCreate($text: String!, $bookId: ID!, $isRecommending: Boolean!) {
+  postCreate(text: $text, bookId: $bookId, isRecommending: $isRecommending) {
+    id
+    text
+    isRecommending
+    creationTime
+  }
+}
+
+mutation postUpdate($id: ID!, $text: String!, $isRecommending: Boolean!) {
+  postUpdate(id: $id, text: $text, isRecommending: $isRecommending) {
+    ...PostParts
+  }
+}
+
+mutation postDelete($id: ID!) {
+  postDelete(id: $id)
+}

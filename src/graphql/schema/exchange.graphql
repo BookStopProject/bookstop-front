@@ -1,14 +1,49 @@
-query exchanges($userBookId: ID!) {
-  exchanges(userBookId: $userBookId) {
-    id
-    userBookIdOld
-    userBookOld {
-      ...UserBookParts
-    }
-    userBookIdNew
-    userBookNew {
-      ...UserBookParts
-    }
-    exchangedAt
+fragment InvoiceParts on Invoice {
+  id
+  creationTime
+  entries {
+    ...InvoiceEntryParts
   }
+}
+
+fragment InvoiceEntryParts on InvoiceEntry {
+  invoiceId
+  bookCopyId
+  credit
+  bookCopy {
+    ...BookCopyParts
+  }
+}
+
+fragment TradeInParts on TradeIn {
+  id
+  userId
+  bookCopyId
+  credit
+  creationTime
+  book {
+    ...BookParts
+  }
+}
+
+query bookCopiesAvailable($bookId: ID!) {
+  bookCopiesAvailable(bookId: $bookId) {
+    ...BookCopyParts
+  }
+}
+
+query meInvoices {
+  meInvoices {
+    ...InvoiceParts
+  }
+}
+
+query meTradeIns {
+  meTradeIns {
+    ...TradeInParts
+  }
+}
+
+mutation exchange($bookCopyIds: [ID!]!) {
+  exchange(bookCopyIds: $bookCopyIds)
 }

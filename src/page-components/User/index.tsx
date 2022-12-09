@@ -1,4 +1,4 @@
-import { ThoughtFeed } from "@/components/ThoughtFeed";
+import { PostFeed } from "@/components/PostFeed";
 import type { User } from "@/graphql/gql.gen";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@reach/tabs";
 import type { FC } from "react";
@@ -11,12 +11,12 @@ const UserPage: FC<{ user: User }> = ({ user }) => {
       <UserInfo user={user} />
       <Tabs className="container">
         <TabList>
-          <Tab>Thoughts</Tab>
+          <Tab>Posts</Tab>
           <Tab>Library</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <ThoughtFeed userId={user.id} />
+            <PostFeed userId={user.id} />
           </TabPanel>
           <TabPanel className="py-4">
             <UserBookList userId={user.id} />

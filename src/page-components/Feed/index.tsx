@@ -1,9 +1,9 @@
 import { Button } from "@/components/Button";
 import { useModal } from "@/components/Modal";
-import { ThoughtFeed } from "@/components/ThoughtFeed";
+import { PostFeed } from "@/components/PostFeed";
 import { PageTitle } from "@/components/Typography";
 import type { FC } from "react";
-import ThoughtWriter from "./ThoughtWriter";
+import PostWriter from "./PostWriter";
 
 const FeedPage: FC = () => {
   const [visible, present, dismiss] = useModal();
@@ -11,10 +11,10 @@ const FeedPage: FC = () => {
     <div className="container">
       <PageTitle>My Feed</PageTitle>
       <Button onClick={present} variant="tonal" className="mx-auto">
-        Add a thought
+        Add a post
       </Button>
-      <ThoughtWriter visible={visible} onDismiss={dismiss} />
-      <ThoughtFeed />
+      <PostWriter visible={visible} onDismiss={dismiss} />
+      <PostFeed />
     </div>
   );
 };

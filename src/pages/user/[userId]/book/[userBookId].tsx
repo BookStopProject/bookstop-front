@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<
     return {
       notFound: true,
     };
-  if (userBook.userId !== userId) {
+  if (userBook.userId !== Number(userId)) {
     return {
       redirect: {
         destination: `${CONFIG.APP_URI}/user/${userBook.userId}/book/${userBook.id}`,

@@ -30,15 +30,15 @@ const UserBookEditorUpdate: FC<{ editingId: string; onDismiss(): void }> = ({
 
   useEffect(() => {
     if (!dataGet?.userBook) return;
-    setStart(dataGet.userBook.startedAt || undefined);
-    setEnd(dataGet.userBook.endedAt || undefined);
+    setStart(dataGet.userBook.startDate || undefined);
+    setEnd(dataGet.userBook.endDate || undefined);
   }, [dataGet]);
 
   const onSubmit = useCallback(async () => {
     const result = await userBookEdit({
       id: editingId,
-      startedAt: start || null,
-      endedAt: end || null,
+      startDate: start || null,
+      endDate: end || null,
     });
     if (!result.error) {
       toast.success("Library book updated");

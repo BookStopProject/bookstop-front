@@ -11,7 +11,7 @@ const BookDescription: FC<{ book: Book }> = ({ book }) => {
     <>
       <div className="overflow-hidden relative max-h-48">
         <ReactMarkdown className="leading-relaxed text-on-surface-variant">
-          {book.description}
+          {book.description || "No description"}
         </ReactMarkdown>
         <div className="absolute bottom-0 py-4 w-full text-center bg-gradient-to-t from-background via-background to-transparent">
           <button
@@ -24,7 +24,7 @@ const BookDescription: FC<{ book: Book }> = ({ book }) => {
       </div>
       <Modal visible={visible} title={book.title} onDismiss={dismiss}>
         <ReactMarkdown className="leading-relaxed">
-          {book.description}
+          {book.description || "No description"}
         </ReactMarkdown>
       </Modal>
     </>
@@ -42,9 +42,7 @@ const BookHead: FC<{ book: Book }> = ({ book }) => {
           <h1 className="mb-1.5 text-2xl font-bold leading-tight">
             {book.title}
           </h1>
-          <div className="text-on-surface-variant">
-            {book.authors.join(", ")}
-          </div>
+          <div className="text-on-surface-variant">{book.author?.name}</div>
         </header>
         <BookDescription book={book} />
         <BookActions book={book} />

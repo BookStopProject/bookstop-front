@@ -1,14 +1,16 @@
 import { UserBookItem } from "@/components/UserBook";
-import { useUserBooksQuery } from "@/graphql/gql.gen";
+import { useMeQuery, useUserBooksQuery } from "@/graphql/gql.gen";
 import { IconLoader } from "@tabler/icons";
 import Link from "next/link";
 import type { FC } from "react";
 
 const UserBookList: FC = () => {
+  const [{ data: dataMe }] = useMeQuery();
   const [{ data, fetching }] = useUserBooksQuery({
     variables: {
-      mine: true,
+      userId: dataMe?.me?.id,
     },
+    pause: !dataMe?.me?.id,
   });
 
   if (fetching) return <IconLoader className="mx-auto animate-spin" />;

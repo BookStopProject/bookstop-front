@@ -1,3 +1,4 @@
+import { CheckoutContextProvider } from "@/components/Checkout";
 import { Layout } from "@/components/Layout";
 import { UserBookEditorWrapper } from "@/components/UserBookEditor";
 import CONFIG from "@/config";
@@ -15,15 +16,17 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   useAuthWatch(router, setClient);
   return (
     <Provider value={client}>
-      <Layout>
-        <UserBookEditorWrapper>
-          <DefaultSeo
-            titleTemplate={`%s | ${CONFIG.name}`}
-            canonical={`${CONFIG.APP_URI}/`}
-          />
-          <Component {...pageProps} />
-        </UserBookEditorWrapper>
-      </Layout>
+      <CheckoutContextProvider>
+        <Layout>
+          <UserBookEditorWrapper>
+            <DefaultSeo
+              titleTemplate={`%s | ${CONFIG.name}`}
+              canonical={`${CONFIG.APP_URI}/`}
+            />
+            <Component {...pageProps} />
+          </UserBookEditorWrapper>
+        </Layout>
+      </CheckoutContextProvider>
       <Toaster />
     </Provider>
   );

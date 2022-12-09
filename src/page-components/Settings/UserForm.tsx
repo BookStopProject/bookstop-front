@@ -15,7 +15,7 @@ const UserForm: FC<{ user: User }> = ({ user }) => {
   useEffect(() => {
     if (!nameRef.current || !bioRef.current) return;
     nameRef.current.value = user.name;
-    bioRef.current.value = user.description || "";
+    bioRef.current.value = user.bio || "";
   }, [user]);
 
   const onSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
@@ -24,10 +24,10 @@ const UserForm: FC<{ user: User }> = ({ user }) => {
       if (fetching) return;
       if (!nameRef.current || !bioRef.current) return;
       const name = nameRef.current.value.trim();
-      const description = bioRef.current.value.trim();
+      const bio = bioRef.current.value.trim();
       const result = await meUpdate({
         name,
-        description,
+        bio,
       });
       if (!result.error) {
         toast.success("Update profile successfully");

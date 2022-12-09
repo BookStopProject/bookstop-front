@@ -5,40 +5,41 @@ import { Modal } from "@/components/Modal";
 import type { User } from "@/graphql/gql.gen";
 import {
   useMeQuery,
-  useThoughtCreateMutation,
+  usePostCreateMutation,
   useUserBooksQuery,
 } from "@/graphql/gql.gen";
 import type { FC, FormEventHandler } from "react";
 import { useCallback, useRef } from "react";
 import toast from "react-hot-toast";
 
-const ThoughtWriterContent: FC<{ onDismiss(): void; me: User }> = ({
+const PostWriterContent: FC<{ onDismiss(): void; me: User }> = ({
   onDismiss,
   me,
 }) => {
   const textRef = useRef<HTMLTextAreaElement>(null);
   const bookIdRef = useRef<HTMLSelectElement>(null);
   const [{ data: dataUserBooks }] = useUserBooksQuery({
-    variables: { mine: true },
+    variables: { userId: me.id },
   });
-  const [{ fetching }, thoughtCreate] = useThoughtCreateMutation();
+  const [{ fetching }, postCreate] = usePostCreateMutation();
 
   const onSubmit = useCallback<FormEventHandler<HTMLFormElement>>(
     async (ev) => {
       ev.preventDefault();
       if (fetching) return;
       const text = textRef.current?.value.trim();
-      if (!text) return;
-      const result = await thoughtCreate({
+      if (!text || !bookIdRef.current?.value) return;
+      const result = await postCreate({
         text,
-        bookId: bookIdRef.current?.value || null,
+        bookId: bookIdRef.current?.value,
+        isRecommending: true,
       });
       if (!result.error) {
-        toast.success("Thought has been published");
+        toast.success("Post has been published");
         onDismiss();
       }
     },
-    [onDismiss, thoughtCreate, fetching]
+    [onDismiss, postCreate, fetching]
   );
   return (
     <form onSubmit={onSubmit} className="space-y-2">
@@ -51,14 +52,14 @@ const ThoughtWriterContent: FC<{ onDismiss(): void; me: User }> = ({
       <select
         ref={bookIdRef}
         className="p-2 w-full"
-        aria-label="Select a book to mention (optional)"
+        aria-label="Select a book to mention"
       >
         <option className="text-on-surface-variant" value="">
           Mention a book
         </option>
         {dataUserBooks?.userBooks.map((userBook) => (
-          <option key={userBook.id} value={userBook.bookId}>
-            {userBook.book.title} - {userBook.book.authors.join(", ")}
+          <option key={userBook.id} value={userBook.book.id}>
+            {userBook.book.title} - {userBook.book.author?.name}
           </option>
         ))}
       </select>
@@ -69,20 +70,20 @@ const ThoughtWriterContent: FC<{ onDismiss(): void; me: User }> = ({
   );
 };
 
-const ThoughtWriter: FC<{ visible: boolean; onDismiss(): void }> = ({
+const PostWriter: FC<{ visible: boolean; onDismiss(): void }> = ({
   visible,
   onDismiss,
 }) => {
   const [{ data: dataMe }] = useMeQuery();
   return (
-    <Modal title="Add a thought" visible={visible} onDismiss={onDismiss}>
+    <Modal title="Add a post" visible={visible} onDismiss={onDismiss}>
       {dataMe?.me ? (
-        <ThoughtWriterContent onDismiss={onDismiss} me={dataMe.me} />
+        <PostWriterContent onDismiss={onDismiss} me={dataMe.me} />
       ) : (
-        <AuthBanner title="Sign in to add a thought" />
+        <AuthBanner title="Sign in to add a post" />
       )}
     </Modal>
   );
 };
 
-export default ThoughtWriter;
+export default PostWriter;

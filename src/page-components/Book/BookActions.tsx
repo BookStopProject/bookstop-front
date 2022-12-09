@@ -6,8 +6,8 @@ import { useState } from "react";
 import BookExchanger from "./BookExchanger";
 
 const BookActions: FC<{ book: Book }> = ({ book }) => {
-  const setUserBookEditor = useUserBookEditor();
   const [showExchange, setShowExchange] = useState(false);
+  const setUserBookEditor = useUserBookEditor();
   return (
     <>
       <div className="flex justify-center md:justify-start py-4 space-x-2">

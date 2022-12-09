@@ -6,13 +6,13 @@ const dtf = new Intl.DateTimeFormat();
 
 const UserBookDates: FC<{ userBook: UserBook }> = ({ userBook }) => {
   const startText = useMemo(() => {
-    if (!userBook.startedAt) return "Unstarted";
-    return dtf.format(new Date(userBook.startedAt));
-  }, [userBook.startedAt]);
+    if (!userBook.startDate) return "Unstarted";
+    return dtf.format(new Date(userBook.startDate));
+  }, [userBook.startDate]);
   const endText = useMemo(() => {
-    if (!userBook.endedAt) return "Unfinished";
-    return dtf.format(new Date(userBook.endedAt));
-  }, [userBook.endedAt]);
+    if (!userBook.endDate) return "Unfinished";
+    return dtf.format(new Date(userBook.endDate));
+  }, [userBook.endDate]);
 
   return (
     <div className="container py-4">
