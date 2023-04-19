@@ -6,7 +6,7 @@ import {
   usePostsQuery,
 } from "@/graphql/gql.gen";
 import { format } from "@lukeed/ms";
-import { IconLoader, IconTrash } from "@tabler/icons";
+import { IconLoader, IconTrash } from "@tabler/icons-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -51,7 +51,7 @@ const PostItem: FC<{ post: Post }> = ({ post }) => {
   }, [post, postDelete]);
 
   return (
-    <Card variant="filled" className="relative py-6 px-8">
+    <Card variant="filled" className="relative px-8 py-6">
       <div className="flex">
         <Avatar
           size={10}
@@ -74,11 +74,11 @@ const PostItem: FC<{ post: Post }> = ({ post }) => {
       </div>
       <p className="mt-4 whitespace-pre-line">{post.text}</p>
       {post.book && (
-        <div className="flex mt-3">
+        <div className="mt-3 flex">
           <div className="w-12">
             <BookItemImage book={post.book} />
           </div>
-          <div className="flex-1 py-2 pl-4 min-w-0">
+          <div className="min-w-0 flex-1 py-2 pl-4">
             <div className="font-bold leading-tight text-on-surface">
               {post.book.title}
             </div>
@@ -95,7 +95,7 @@ const PostItem: FC<{ post: Post }> = ({ post }) => {
         <button
           disabled={fetchingDelete}
           onClick={onDelete}
-          className="absolute top-2 right-2"
+          className="absolute right-2 top-2"
           aria-label={`Remove post: ${post.text}`}
         >
           <IconTrash width={18} height={18} />
@@ -120,7 +120,7 @@ const PostFeed: FC<{ userId?: string }> = ({ userId }) => {
     setBefore(Number(data.posts[data.posts.length - 1].id));
   }, [isInView, data?.posts]);
   return (
-    <div className="py-8 mx-auto space-y-4 max-w-3xl">
+    <div className="mx-auto max-w-3xl space-y-4 py-8">
       {data?.posts.map((t) => (
         <PostItem key={t.id} post={t} />
       ))}

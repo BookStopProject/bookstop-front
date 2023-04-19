@@ -10,7 +10,7 @@ const BookActions: FC<{ book: Book }> = ({ book }) => {
   const setUserBookEditor = useUserBookEditor();
   return (
     <>
-      <div className="flex justify-center md:justify-start py-4 space-x-2">
+      <div className="flex justify-center space-x-2 py-4 md:justify-start">
         <Button variant="filled" onClick={() => setShowExchange(true)}>
           Exchange
         </Button>

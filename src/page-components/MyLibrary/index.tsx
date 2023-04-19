@@ -1,7 +1,7 @@
 import { AuthBanner } from "@/components/Auth";
 import { PageTitle } from "@/components/Typography";
 import { useMeQuery } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import type { FC } from "react";
 import UserBookList from "./UserBookList";
 

@@ -97,39 +97,25 @@ export function newClient() {
           },
         },
       }),
-      authExchange<{ token: string } | null>({
-        async getAuth({ authState }) {
-          if (!authState) {
-            const token = getAuthCode();
-            if (!token) return null;
-            return { token };
-          }
-          return null;
-        },
-        addAuthToOperation({ authState, operation }) {
-          if (!authState?.token) {
-            return operation;
-          }
+      authExchange(async (utils) => {
+        const token = getAuthCode();
 
-          const fetchOptions =
-            typeof operation.context.fetchOptions === "function"
-              ? operation.context.fetchOptions()
-              : operation.context.fetchOptions || {};
-
-          return {
-            ...operation,
-            context: {
-              ...operation.context,
-              fetchOptions: {
-                ...fetchOptions,
-                headers: {
-                  ...fetchOptions.headers,
-                  Authorization: authState.token,
-                },
-              },
-            },
-          };
-        },
+        return {
+          addAuthToOperation(operation) {
+            if (!token) return operation;
+            return utils.appendHeaders(operation, {
+              Authorization: token,
+            });
+          },
+          didAuthError(error, _operation) {
+            return error.graphQLErrors.some((e) =>
+              e.message.includes("Unauthorized")
+            );
+          },
+          async refreshAuth() {
+            return;
+          },
+        };
       }),
       errorExchange({
         onError(error) {

@@ -1,19 +1,23 @@
 import clsx from "clsx";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 
 interface CardProps {
   variant?: "outline" | "filled";
   className?: string;
 }
 
-const Card: FC<CardProps> = ({ variant = "outline", className, children }) => {
+const Card: FC<PropsWithChildren<CardProps>> = ({
+  variant = "outline",
+  className,
+  children,
+}) => {
   return (
     <div
       className={clsx(
-        "overflow-hidden p-4 rounded-lg",
+        "overflow-hidden rounded-lg p-4",
         variant === "outline" &&
-          "text-on-surface bg-surface border-1 border-outline",
-        variant === "filled" && "text-on-surface-variant bg-surface-variant",
+          "border-1 border-outline bg-surface text-on-surface",
+        variant === "filled" && "bg-surface-variant text-on-surface-variant",
         className
       )}
     >

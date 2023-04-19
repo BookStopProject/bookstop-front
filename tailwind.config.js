@@ -4,8 +4,7 @@ const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 module.exports = {
   mode: "jit",
-  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
       transparent: "transparent",
@@ -56,8 +55,4 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [require("@tailwindcss/line-clamp")],
 };

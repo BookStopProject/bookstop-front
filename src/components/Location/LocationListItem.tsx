@@ -13,7 +13,7 @@ const LocationListItem: FC<LocationListItemProps> = ({
   return (
     <div className={className}>
       <p className="font-bold">{location.name}</p>
-      <p className="text-sm font-light truncate">{location.address}</p>
+      <p className="truncate text-sm font-light">{location.address}</p>
     </div>
   );
 };

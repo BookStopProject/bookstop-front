@@ -25,10 +25,10 @@ const ExchangeBlock: FC<{ user: User }> = ({ user }) => {
 const UserBookTimeline: FC<{ userBook: UserBook }> = ({ userBook }) => {
   return (
     <div className="container py-4">
-      <h2 className="mb-4 text-xl font-light text-center text-secondary">
+      <h2 className="mb-4 text-center text-xl font-light text-secondary">
         All Owners
       </h2>
-      <div className="mx-auto space-y-4 max-w-md">
+      <div className="mx-auto max-w-md space-y-4">
         {userBook.owners.map((user) => (
           <ExchangeBlock key={user.id} user={user} />
         ))}

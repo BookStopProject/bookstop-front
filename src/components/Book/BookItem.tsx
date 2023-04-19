@@ -12,7 +12,7 @@ export const BookItemImage: FC<{ book: Book; short?: boolean }> = ({
 }) => (
   <div
     className={clsx(
-      "overflow-hidden bg-surface-2 rounded-lg",
+      "overflow-hidden rounded-lg bg-surface-2",
       short ? "aspect-regular-short" : "aspect-regular"
     )}
   >
@@ -33,7 +33,7 @@ export const BookItemMeta: FC<{ book: Book; className?: string }> = ({
       <p className="font-medium leading-tight text-on-surface line-clamp-2">
         {book.title}
       </p>
-      <p className="mt-1 text-sm leading-tight text-on-surface-variant truncate">
+      <p className="mt-1 truncate text-sm leading-tight text-on-surface-variant">
         {book.author?.name}
       </p>
     </div>

@@ -1,5 +1,5 @@
 import { useMeQuery } from "@/graphql/gql.gen";
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import { createContext, useCallback, useContext, useState } from "react";
 import { AuthBanner } from "../Auth";
 import { Modal } from "../Modal";
@@ -17,7 +17,7 @@ const Context = createContext(
   undefined as unknown as Dispatch<SetStateAction<IUserBookEditorContext>>
 );
 
-export const UserBookEditorWrapper: FC = ({ children }) => {
+export const UserBookEditorWrapper: FC<PropsWithChildren> = ({ children }) => {
   const [value, setValue] = useState<IUserBookEditorContext>(null);
   const onDismiss = useCallback(() => setValue(null), []);
   const [{ data: dataMe }] = useMeQuery();

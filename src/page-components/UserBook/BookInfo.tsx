@@ -8,13 +8,13 @@ const BookInfo: FC<{ userBook: UserBook }> = ({ userBook }) => {
   const book = userBook.book;
   if (!book || !userBook.user) return null;
   return (
-    <div className="container flex flex-col py-4 px-2 mx-auto max-w-6xl">
+    <div className="container mx-auto flex max-w-6xl flex-col px-2 py-4">
       <div className="mx-auto w-48">
         <BookItemImage book={book} />
       </div>
       <header className="pt-4 text-center">
         <Link href={`/user/${userBook.userId}`}>
-          <a className="flex justify-center items-center mb-2">
+          <a className="mb-2 flex items-center justify-center">
             <Avatar
               size={6}
               src={userBook.user.profilePicture}

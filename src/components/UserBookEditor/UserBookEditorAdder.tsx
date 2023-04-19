@@ -5,7 +5,7 @@ import {
   useUserBookAddMutation,
   useUserBooksQuery,
 } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import type { FC } from "react";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";

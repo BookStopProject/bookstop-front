@@ -31,7 +31,7 @@ const BookListSection: FC<BookListSectionProps> = ({ browse }) => {
       <Scroller classNameContent="gap-x-4">
         {resortedBooks.map((book) => (
           <Link key={book.id} href={`/book/${book.id}`}>
-            <a className="w-32 md:w-48 hover:opacity-75 focus:opacity-80 transition-opacity focus:outline-none">
+            <a className="w-32 transition-opacity hover:opacity-75 focus:opacity-80 focus:outline-none md:w-48">
               <BookItem book={book} />
             </a>
           </Link>

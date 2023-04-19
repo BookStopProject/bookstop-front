@@ -1,5 +1,5 @@
 import type { BookCopy } from "@/graphql/gql.gen";
-import type { Dispatch, FC, SetStateAction } from "react";
+import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import { createContext, useContext, useState } from "react";
 
 interface CheckoutContextValue {
@@ -11,7 +11,9 @@ const CheckoutContext = createContext<CheckoutContextValue>(
   {} as CheckoutContextValue
 );
 
-export const CheckoutContextProvider: FC = ({ children }) => {
+export const CheckoutContextProvider: FC<PropsWithChildren> = ({
+  children,
+}) => {
   const [bookCopies, setBookCopies] = useState<BookCopy[]>([]);
 
   return (

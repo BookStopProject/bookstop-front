@@ -11,7 +11,7 @@ const AuthBanner: FC<{ title?: string }> = ({ title }) => {
   return (
     <Card
       variant="filled"
-      className="flex flex-col items-center mx-auto max-w-md"
+      className="mx-auto flex max-w-md flex-col items-center"
     >
       <p className="mb-2">{title || "Please sign in to access this section"}</p>
       <Button onClick={signIn}>Sign in</Button>

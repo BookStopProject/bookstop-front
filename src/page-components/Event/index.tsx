@@ -2,7 +2,7 @@ import { Card } from "@/components/Card";
 import { PageTitle } from "@/components/Typography";
 import type { Event } from "@/graphql/gql.gen";
 import { useEventsQuery } from "@/graphql/gql.gen";
-import { IconClock, IconLoader } from "@tabler/icons";
+import { IconClock, IconLoader } from "@tabler/icons-react";
 import type { FC } from "react";
 
 const EventItem: FC<{ event: Event }> = ({ event }) => {
@@ -33,7 +33,7 @@ const EventsPage: FC = () => {
           <IconLoader />
         </span>
       ) : (
-        <div className="mx-auto space-y-4 max-w-3xl">
+        <div className="mx-auto max-w-3xl space-y-4">
           {data?.events.map((event) => (
             <EventItem key={event.id} event={event} />
           ))}

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 
 export interface InputContainerProps {
   label?: string;
@@ -7,13 +7,9 @@ export interface InputContainerProps {
   variant?: "outlined" | "filled";
 }
 
-export const InputContainer: FC<InputContainerProps & { focused: boolean }> = ({
-  label,
-  className,
-  children,
-  variant = "outlined",
-  focused,
-}) => {
+export const InputContainer: FC<
+  PropsWithChildren<InputContainerProps & { focused: boolean }>
+> = ({ label, className, children, variant = "outlined", focused }) => {
   return (
     <label className={className}>
       {label && (
@@ -28,7 +24,7 @@ export const InputContainer: FC<InputContainerProps & { focused: boolean }> = ({
       )}
       <div
         className={clsx(
-          "flex items-center py-2 px-3 space-x-2 rounded-lg transition-colors",
+          "flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors",
           variant === "outlined" && "border-2 border-outline",
           variant === "outlined" && focused && "border-2 border-primary"
         )}

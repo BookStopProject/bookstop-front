@@ -3,7 +3,7 @@ import {
   useUserBookEditMutation,
   useUserBookQuery,
 } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import type { FC } from "react";
 import { useCallback, useEffect, useState } from "react";

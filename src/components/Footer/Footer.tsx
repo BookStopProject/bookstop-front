@@ -10,13 +10,13 @@ import {
   IconBrandFacebook,
   IconBrandTwitter,
   IconBrandYoutube,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import type { FC } from "react";
 
 const Footer: FC = () => {
   return (
-    <footer className="flex justify-center items-center px-8 h-20 border-t-1 border-outline border-opacity-25">
-      <div className="flex flex-col sm:flex-row justify-center items-center w-full max-w-6xl">
+    <footer className="flex h-20 items-center justify-center border-t-1 border-outline border-opacity-25 px-8">
+      <div className="flex w-full max-w-6xl flex-col items-center justify-center sm:flex-row">
         <div className="flex flex-1 items-center">
           <p className="mr-4 text-sm text-on-surface-variant">
             © {CONFIG.name} 2022

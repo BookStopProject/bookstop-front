@@ -1,5 +1,5 @@
 import IconZap from "@/assets/icons/zap.svg";
-import { IconBook, IconCalendarEvent, IconSearch } from "@tabler/icons";
+import { IconBook, IconCalendarEvent, IconSearch } from "@tabler/icons-react";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -22,7 +22,7 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
       >
         <span
           className={clsx(
-            "flex justify-center items-center mx-auto w-16 h-8 rounded-full transition-colors",
+            "mx-auto flex h-8 w-16 items-center justify-center rounded-full transition-colors",
             isActive && "bg-secondary-container"
           )}
         >
@@ -36,7 +36,7 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
 
 const BottomBar: FC = () => {
   return (
-    <div className="flex md:hidden fixed bottom-0 z-20 items-center w-full h-20 bg-surface">
+    <div className="fixed bottom-0 z-20 flex h-20 w-full items-center bg-surface md:hidden">
       <Tab icon={<IconSearch size={21} />} href="/" title="Browse" />
       <Tab icon={<IconZap size={21} />} href="/feed" title="Feed" />
       <Tab
@@ -52,5 +52,5 @@ const BottomBar: FC = () => {
 export default BottomBar;
 
 export const BottomBarPlaceholder: FC = () => {
-  return <div className="md:hidden w-full h-20" />;
+  return <div className="h-20 w-full md:hidden" />;
 };

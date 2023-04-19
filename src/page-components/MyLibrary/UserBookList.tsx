@@ -1,6 +1,6 @@
 import { UserBookItem } from "@/components/UserBook";
 import { useMeQuery, useUserBooksQuery } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import Link from "next/link";
 import type { FC } from "react";
 
@@ -16,13 +16,13 @@ const UserBookList: FC = () => {
   if (fetching) return <IconLoader className="mx-auto animate-spin" />;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       {data?.userBooks.map((userBook) => (
         <Link
           href={`/user/${userBook.userId}/book/${userBook.id}`}
           key={userBook.id}
         >
-          <a className="rounded-lg focus:ring-2 ring-surface-variant hover:opacity-75 transition focus:outline-none">
+          <a className="rounded-lg ring-surface-variant transition hover:opacity-75 focus:outline-none focus:ring-2">
             <UserBookItem userBook={userBook} />
           </a>
         </Link>

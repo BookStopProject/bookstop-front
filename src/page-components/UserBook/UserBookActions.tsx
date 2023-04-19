@@ -11,7 +11,7 @@ const UserBookActions: FC<{ userBook: UserBook }> = ({ userBook }) => {
 
   return (
     <>
-      <div className="flex justify-center pb-4 space-x-2">
+      <div className="flex justify-center space-x-2 pb-4">
         <Button
           onClick={() =>
             setUserBookEditor({

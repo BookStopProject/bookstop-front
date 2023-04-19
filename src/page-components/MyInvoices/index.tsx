@@ -2,7 +2,7 @@ import { Modal } from "@/components/Modal";
 import { PageTitle } from "@/components/Typography";
 import type { Invoice } from "@/graphql/gql.gen";
 import { useMeInvoicesQuery } from "@/graphql/gql.gen";
-import { IconCoin, IconShoppingCart } from "@tabler/icons";
+import { IconCoin, IconShoppingCart } from "@tabler/icons-react";
 import type { FC } from "react";
 import { useState } from "react";
 
@@ -20,19 +20,19 @@ const MyInvoiceModal: FC<{
         invoice.entries.map((entry) => (
           <div
             key={invoice.id}
-            className="flex overflow-hidden relative p-4 py-6 px-8 text-on-surface-variant bg-surface-variant rounded-lg"
+            className="relative flex overflow-hidden rounded-lg bg-surface-variant p-4 px-8 py-6 text-on-surface-variant"
           >
             <div className="flex flex-1">
               <img
                 src={entry.bookCopy.book.imageUrl || "/images/book-default.svg"}
                 alt={`Title: ${entry.bookCopy.book.title}, Author: ${entry.bookCopy.book.author?.name}`}
-                className="object-cover mr-4 h-24 rounded-lg"
+                className="mr-4 h-24 rounded-lg object-cover"
               />
               <div>
                 <p className="font-medium leading-tight text-on-surface line-clamp-2">
                   {entry.bookCopy.book.title}
                 </p>
-                <p className="mt-1 mb-2 text-sm leading-tight text-on-surface-variant truncate">
+                <p className="mb-2 mt-1 truncate text-sm leading-tight text-on-surface-variant">
                   {entry.bookCopy.book.author?.name}
                 </p>
               </div>
@@ -65,18 +65,18 @@ const MyInvoicesPage = () => {
         <div className="flex flex-col space-y-4">
           {data?.meInvoices.map((invoice) => (
             <button
-              className="flex justify-between items-center p-4 space-x-4 bg-surface-variant rounded-lg"
+              className="flex items-center justify-between space-x-4 rounded-lg bg-surface-variant p-4"
               key={invoice.id}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               /* @ts-ignore */
               onClick={() => setInvoice(invoice)}
             >
-              <div className="flex flex-col space-y-2 w-full">
-                <div className="flex items-center space-x-4 w-full">
+              <div className="flex w-full flex-col space-y-2">
+                <div className="flex w-full items-center space-x-4">
                   <div className="text-lg font-semibold text-on-surface">
                     Invoice No {invoice.id}
                   </div>
-                  <div className="py-1 px-2 text-xs">
+                  <div className="px-2 py-1 text-xs">
                     {invoice.creationTime.toLocaleString()}
                   </div>
                   <div className="flex-1" />

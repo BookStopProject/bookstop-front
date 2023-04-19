@@ -1,24 +1,24 @@
 import { A, PageTitle } from "@/components/Typography";
 import type { TradeIn } from "@/graphql/gql.gen";
 import { useMeTradeInsQuery } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import Link from "next/link";
 import type { FC } from "react";
 
 const TradeInCard: FC<{ tradeIn: TradeIn }> = ({ tradeIn }) => {
   return (
-    <div className="flex overflow-hidden relative p-4 py-6 px-8 text-on-surface-variant bg-surface-variant rounded-lg">
+    <div className="relative flex overflow-hidden rounded-lg bg-surface-variant p-4 px-8 py-6 text-on-surface-variant">
       <div className="flex flex-1">
         <img
           src={tradeIn.book.imageUrl || "/images/book-default.svg"}
           alt={`Title: ${tradeIn.book.title}, Author: ${tradeIn.book.author?.name}`}
-          className="object-cover mr-4 h-24 rounded-lg"
+          className="mr-4 h-24 rounded-lg object-cover"
         />
         <div>
           <p className="font-medium leading-tight text-on-surface line-clamp-2">
             {tradeIn.book.title}
           </p>
-          <p className="mt-1 mb-2 text-sm leading-tight text-on-surface-variant truncate">
+          <p className="mb-2 mt-1 truncate text-sm leading-tight text-on-surface-variant">
             {tradeIn.book.author?.name}
           </p>
           <Link href={`/book/${tradeIn.book.id}`} passHref>

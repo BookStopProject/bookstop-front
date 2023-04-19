@@ -23,18 +23,18 @@ const CheckoutItem: FC<{ bookCopy: BookCopy }> = ({ bookCopy }) => {
   }, [bookCopy]);
 
   return (
-    <div className="flex overflow-hidden relative p-4 py-6 px-8 text-on-surface-variant bg-surface-variant rounded-lg">
+    <div className="relative flex overflow-hidden rounded-lg bg-surface-variant p-4 px-8 py-6 text-on-surface-variant">
       <div className="flex flex-1">
         <img
           src={bookCopy.book.imageUrl || "/images/book-default.svg"}
           alt={`Title: ${bookCopy.book.title}, Author: ${bookCopy.book.author?.name}`}
-          className="object-cover mr-4 h-24 rounded-lg"
+          className="mr-4 h-24 rounded-lg object-cover"
         />
         <div>
           <p className="font-medium leading-tight text-on-surface line-clamp-2">
             {bookCopy.book.title}
           </p>
-          <p className="mt-1 mb-2 text-sm leading-tight text-on-surface-variant truncate">
+          <p className="mb-2 mt-1 truncate text-sm leading-tight text-on-surface-variant">
             {bookCopy.book.author?.name}
           </p>
           <Link href={`/book/${bookCopy.book.id}`} passHref>

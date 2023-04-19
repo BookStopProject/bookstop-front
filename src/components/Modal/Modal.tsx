@@ -1,13 +1,18 @@
 import { Dialog } from "@reach/dialog";
-import { IconX } from "@tabler/icons";
-import type { FC } from "react";
+import { IconX } from "@tabler/icons-react";
+import type { FC, PropsWithChildren } from "react";
 
 interface ModalProps {
   onDismiss?(): void;
   visible: boolean;
   title: string;
 }
-const Modal: FC<ModalProps> = ({ onDismiss, visible, title, children }) => {
+const Modal: FC<PropsWithChildren<ModalProps>> = ({
+  onDismiss,
+  visible,
+  title,
+  children,
+}) => {
   return (
     <Dialog
       aria-label={title || "Dialog"}
