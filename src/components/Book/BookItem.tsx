@@ -30,7 +30,7 @@ export const BookItemMeta: FC<{ book: Book; className?: string }> = ({
 }) => {
   return (
     <div className={className}>
-      <p className="font-medium leading-tight text-on-surface line-clamp-2">
+      <p className="line-clamp-2 font-medium leading-tight text-on-surface">
         {book.title}
       </p>
       <p className="mt-1 truncate text-sm leading-tight text-on-surface-variant">

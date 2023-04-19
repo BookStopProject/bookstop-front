@@ -59,10 +59,11 @@ const PostItem: FC<{ post: Post }> = ({ post }) => {
           username={post.user.name}
         />
         <div className="pl-2">
-          <Link href={`/user/${post.user.id}`}>
-            <a className="font-medium leading-none text-on-surface">
-              {post.user.name}
-            </a>
+          <Link
+            href={`/user/${post.user.id}`}
+            className="font-medium leading-none text-on-surface"
+          >
+            {post.user.name}
           </Link>
           <time
             dateTime={post.creationTime.toJSON()}
@@ -85,7 +86,7 @@ const PostItem: FC<{ post: Post }> = ({ post }) => {
             <div className="mb-1 text-sm leading-tight text-on-surface-variant">
               {post.book.author?.name}
             </div>
-            <Link href={`/book/${post.book.id}`} passHref>
+            <Link href={`/book/${post.book.id}`} passHref legacyBehavior>
               <A className="text-sm font-bold">View Book</A>
             </Link>
           </div>

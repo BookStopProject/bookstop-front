@@ -15,13 +15,13 @@ const TradeInCard: FC<{ tradeIn: TradeIn }> = ({ tradeIn }) => {
           className="mr-4 h-24 rounded-lg object-cover"
         />
         <div>
-          <p className="font-medium leading-tight text-on-surface line-clamp-2">
+          <p className="line-clamp-2 font-medium leading-tight text-on-surface">
             {tradeIn.book.title}
           </p>
           <p className="mb-2 mt-1 truncate text-sm leading-tight text-on-surface-variant">
             {tradeIn.book.author?.name}
           </p>
-          <Link href={`/book/${tradeIn.book.id}`} passHref>
+          <Link href={`/book/${tradeIn.book.id}`} passHref legacyBehavior>
             <A className="text-sm font-bold">View Book</A>
           </Link>
         </div>

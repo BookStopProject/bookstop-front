@@ -29,18 +29,17 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
   const router = useRouter();
   const isActive = router.pathname === href;
   return (
-    <Link href={href}>
-      <a
-        className={clsx(
-          "flex rounded-full px-4 py-2 font-medium transition-colors focus:bg-surface-2",
-          isActive
-            ? "bg-surface-2 text-on-secondary-container"
-            : "text-on-surface-variant"
-        )}
-      >
-        {icon}
-        <span className="ml-2">{title}</span>
-      </a>
+    <Link
+      href={href}
+      className={clsx(
+        "flex rounded-full px-4 py-2 font-medium transition-colors focus:bg-surface-2",
+        isActive
+          ? "bg-surface-2 text-on-secondary-container"
+          : "text-on-surface-variant"
+      )}
+    >
+      {icon}
+      <span className="ml-2">{title}</span>
     </Link>
   );
 };
@@ -126,10 +125,8 @@ const Header: FC = () => {
   return (
     <>
       <div className="fixed top-0 z-20 flex h-16 w-full items-center justify-between space-x-2 bg-surface px-4 md:px-8">
-        <Link href="/">
-          <a className="w-36 flex-none lg:w-48">
-            <Image src={logo} alt="Logo" />
-          </a>
+        <Link href="/" className="w-36 flex-none lg:w-48">
+          <Image src={logo} alt="Logo" />
         </Link>
         <Tabs />
         <div className="flex w-48 items-center justify-end">

@@ -21,10 +21,9 @@ const UserBookList: FC = () => {
         <Link
           href={`/user/${userBook.userId}/book/${userBook.id}`}
           key={userBook.id}
+          className="rounded-lg ring-surface-variant transition hover:opacity-75 focus:outline-none focus:ring-2"
         >
-          <a className="rounded-lg ring-surface-variant transition hover:opacity-75 focus:outline-none focus:ring-2">
-            <UserBookItem userBook={userBook} />
-          </a>
+          <UserBookItem userBook={userBook} />
         </Link>
       ))}
     </div>

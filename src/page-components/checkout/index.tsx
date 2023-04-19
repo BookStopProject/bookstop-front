@@ -31,13 +31,13 @@ const CheckoutItem: FC<{ bookCopy: BookCopy }> = ({ bookCopy }) => {
           className="mr-4 h-24 rounded-lg object-cover"
         />
         <div>
-          <p className="font-medium leading-tight text-on-surface line-clamp-2">
+          <p className="line-clamp-2 font-medium leading-tight text-on-surface">
             {bookCopy.book.title}
           </p>
           <p className="mb-2 mt-1 truncate text-sm leading-tight text-on-surface-variant">
             {bookCopy.book.author?.name}
           </p>
-          <Link href={`/book/${bookCopy.book.id}`} passHref>
+          <Link href={`/book/${bookCopy.book.id}`} passHref legacyBehavior>
             <A className="text-sm font-bold">View Book</A>
           </Link>
         </div>

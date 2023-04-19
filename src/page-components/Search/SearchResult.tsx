@@ -28,10 +28,12 @@ const SearchResult: FC = () => {
         <>
           <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
             {data?.bookSearch.map((book) => (
-              <Link key={book.id} href={`/book/${book.id}`}>
-                <a className="transition-opacity hover:opacity-75 focus:opacity-80 focus:outline-none">
-                  <BookItem book={book} />
-                </a>
+              <Link
+                key={book.id}
+                href={`/book/${book.id}`}
+                className="transition-opacity hover:opacity-75 focus:opacity-80 focus:outline-none"
+              >
+                <BookItem book={book} />
               </Link>
             ))}
           </div>

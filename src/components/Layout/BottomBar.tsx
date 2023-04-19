@@ -13,23 +13,22 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
   const router = useRouter();
   const isActive = router.pathname === href;
   return (
-    <Link href={href}>
-      <a
+    <Link
+      href={href}
+      className={clsx(
+        "flex-1 text-center",
+        isActive ? "text-on-secondary-container" : "text-on-surface-variant"
+      )}
+    >
+      <span
         className={clsx(
-          "flex-1 text-center",
-          isActive ? "text-on-secondary-container" : "text-on-surface-variant"
+          "mx-auto flex h-8 w-16 items-center justify-center rounded-full transition-colors",
+          isActive && "bg-secondary-container"
         )}
       >
-        <span
-          className={clsx(
-            "mx-auto flex h-8 w-16 items-center justify-center rounded-full transition-colors",
-            isActive && "bg-secondary-container"
-          )}
-        >
-          {icon}
-        </span>
-        <p className="mt-1 text-sm font-medium">{title}</p>
-      </a>
+        {icon}
+      </span>
+      <p className="mt-1 text-sm font-medium">{title}</p>
     </Link>
   );
 };
