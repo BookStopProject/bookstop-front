@@ -9,14 +9,14 @@ const BookDescription: FC<{ book: Book }> = ({ book }) => {
   const [visible, present, dismiss] = useModal();
   return (
     <>
-      <div className="overflow-hidden relative max-h-48">
+      <div className="relative max-h-48 overflow-hidden">
         <ReactMarkdown className="leading-relaxed text-on-surface-variant">
           {book.description || "No description"}
         </ReactMarkdown>
-        <div className="absolute bottom-0 py-4 w-full text-center bg-gradient-to-t from-background via-background to-transparent">
+        <div className="absolute bottom-0 w-full bg-gradient-to-t from-background via-background to-transparent py-4 text-center">
           <button
             onClick={present}
-            className="px-4 text-sm font-medium bg-surface-1 hover:bg-surface-2 focus:bg-surface-2 rounded-full"
+            className="rounded-full bg-surface-1 px-4 text-sm font-medium hover:bg-surface-2 focus:bg-surface-2"
           >
             Read more
           </button>
@@ -33,12 +33,12 @@ const BookDescription: FC<{ book: Book }> = ({ book }) => {
 
 const BookHead: FC<{ book: Book }> = ({ book }) => {
   return (
-    <div className="flex flex-col md:flex-row py-4 px-2 mx-auto max-w-6xl">
-      <div className="mx-auto md:mx-24 w-48 md:w-72">
+    <div className="mx-auto flex max-w-6xl flex-col px-2 py-4 md:flex-row">
+      <div className="mx-auto w-48 md:mx-24 md:w-72">
         <BookItemImage book={book} />
       </div>
-      <div className="md:flex-1 px-4 md:px-0">
-        <header className="py-4 mb-4 text-center md:text-left">
+      <div className="px-4 md:flex-1 md:px-0">
+        <header className="mb-4 py-4 text-center md:text-left">
           <h1 className="mb-1.5 text-2xl font-bold leading-tight">
             {book.title}
           </h1>

@@ -1,5 +1,5 @@
 import { Input } from "@/components/Input";
-import { IconSearch } from "@tabler/icons";
+import { IconSearch } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import type { FC, FormEventHandler } from "react";
 import { useCallback, useRef } from "react";
@@ -16,7 +16,7 @@ const SectionSearch: FC = () => {
     [router]
   );
   return (
-    <form className="container pt-4 pb-8" onSubmit={onSubmit}>
+    <form className="container pb-8 pt-4" onSubmit={onSubmit}>
       <Input
         ref={ref}
         placeholder="Titles, authors, or readers"

@@ -10,7 +10,7 @@ import {
   IconCoin,
   IconSearch,
   IconShoppingCart,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,25 +29,24 @@ const Tab: FC<{ href: string; title: string; icon: ReactNode }> = ({
   const router = useRouter();
   const isActive = router.pathname === href;
   return (
-    <Link href={href}>
-      <a
-        className={clsx(
-          "flex py-2 px-4 font-medium focus:bg-surface-2 rounded-full transition-colors",
-          isActive
-            ? "text-on-secondary-container bg-surface-2"
-            : "text-on-surface-variant"
-        )}
-      >
-        {icon}
-        <span className="ml-2">{title}</span>
-      </a>
+    <Link
+      href={href}
+      className={clsx(
+        "flex rounded-full px-4 py-2 font-medium transition-colors focus:bg-surface-2",
+        isActive
+          ? "bg-surface-2 text-on-secondary-container"
+          : "text-on-surface-variant"
+      )}
+    >
+      {icon}
+      <span className="ml-2">{title}</span>
     </Link>
   );
 };
 
 const Tabs: FC = () => {
   return (
-    <div className="hidden md:flex items-center space-x-4">
+    <div className="hidden items-center space-x-4 md:flex">
       <Tab icon={<IconSearch />} href="/" title="Browse" />
       <Tab icon={<IconZap />} href="/feed" title="Feed" />
       <Tab icon={<IconCalendarEvent />} href="/events" title="Events" />
@@ -74,13 +73,13 @@ const Auth: FC = () => {
   if (data?.me) {
     return (
       <div className="flex items-center space-x-2">
-        <div className="flex items-center px-4 h-10 text-secondary bg-surface-variant rounded-full">
+        <div className="flex h-10 items-center rounded-full bg-surface-variant px-4 text-secondary">
           <IconCoin />
           <span className="ml-1 font-bold">{data.me.credit}</span>
         </div>
         <button
           onClick={() => router.push("/checkout")}
-          className="flex items-center px-4 h-10 text-secondary bg-surface-variant rounded-full"
+          className="flex h-10 items-center rounded-full bg-surface-variant px-4 text-secondary"
         >
           <IconShoppingCart />
           <span className="ml-1 font-bold">{bookCopies.length}</span>
@@ -125,14 +124,12 @@ const Auth: FC = () => {
 const Header: FC = () => {
   return (
     <>
-      <div className="flex fixed top-0 z-20 justify-between items-center px-4 md:px-8 space-x-2 w-full h-16 bg-surface">
-        <Link href="/">
-          <a className="flex-none w-36 lg:w-48">
-            <Image src={logo} alt="Logo" />
-          </a>
+      <div className="fixed top-0 z-20 flex h-16 w-full items-center justify-between space-x-2 bg-surface px-4 md:px-8">
+        <Link href="/" className="w-36 flex-none lg:w-48">
+          <Image src={logo} alt="Logo" />
         </Link>
         <Tabs />
-        <div className="flex justify-end items-center w-48">
+        <div className="flex w-48 items-center justify-end">
           <Auth />
         </div>
       </div>

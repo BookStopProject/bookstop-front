@@ -5,7 +5,7 @@ import { LocationListItem } from "@/components/Location";
 import { Modal } from "@/components/Modal";
 import type { Book, BookCopy } from "@/graphql/gql.gen";
 import { useBookCopiesAvailableQuery, useMeQuery } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import type { FC } from "react";
 import toast from "react-hot-toast";
 
@@ -33,16 +33,16 @@ const BookExchangerList: FC<
       ) : data?.bookCopiesAvailable.length ? (
         data?.bookCopiesAvailable.map((bookCopy) => (
           <div
-            className="flex items-center p-1 space-x-2 rounded-lg"
+            className="flex items-center space-x-2 rounded-lg p-1"
             key={bookCopy.id}
           >
             {bookCopy.location && (
               <LocationListItem
-                className="flex-1 min-w-0"
+                className="min-w-0 flex-1"
                 location={bookCopy.location}
               />
             )}
-            <div className="flex items-center px-4 h-10 text-secondary capitalize bg-surface-variant rounded-full">
+            <div className="flex h-10 items-center rounded-full bg-surface-variant px-4 capitalize text-secondary">
               {bookCopy.condition}
             </div>
             <Button

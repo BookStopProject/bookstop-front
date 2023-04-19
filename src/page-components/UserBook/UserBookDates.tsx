@@ -16,10 +16,10 @@ const UserBookDates: FC<{ userBook: UserBook }> = ({ userBook }) => {
 
   return (
     <div className="container py-4">
-      <h2 className="mb-2 text-xl font-light text-center text-secondary">
+      <h2 className="mb-2 text-center text-xl font-light text-secondary">
         Read from
       </h2>
-      <p className="text-lg text-center text-on-surface-variant">
+      <p className="text-center text-lg text-on-surface-variant">
         {startText} - {endText}
       </p>
     </div>

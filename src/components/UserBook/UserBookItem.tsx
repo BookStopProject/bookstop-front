@@ -1,5 +1,5 @@
 import type { UserBook } from "@/graphql/gql.gen";
-import { IconClock } from "@tabler/icons";
+import { IconClock } from "@tabler/icons-react";
 import type { FC } from "react";
 import { useMemo } from "react";
 import { Avatar } from "../Avatar";
@@ -19,11 +19,11 @@ const UserBookItem: FC<{ userBook: UserBook }> = ({ userBook }) => {
     return dtf.format(new Date(userBook.endDate));
   }, [userBook.endDate]);
   return (
-    <Card variant="filled" className="flex p-2 bg-surface-1">
+    <Card variant="filled" className="flex bg-surface-1 p-2">
       <div className="mr-2 w-36">{book && <BookItemImage book={book} />}</div>
       <div className="flex-1 p-2">
         {userBook.user && (
-          <div className="flex items-center mb-1">
+          <div className="mb-1 flex items-center">
             <Avatar
               size={6}
               src={userBook.user.profilePicture}

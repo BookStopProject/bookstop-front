@@ -1,8 +1,8 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 
-const PageTitle: FC = ({ children }) => {
+const PageTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <h1 className="my-4 text-3xl font-bold text-center text-on-surface">
+    <h1 className="my-4 text-center text-3xl font-bold text-on-surface">
       {children}
     </h1>
   );

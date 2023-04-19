@@ -1,6 +1,6 @@
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import clsx from "clsx";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { useCallback, useRef, useState } from "react";
 
 interface ScrollerProps {
@@ -16,7 +16,7 @@ const ChevronButton: FC<{ position: "left" | "right"; onClick(): void }> = ({
   return (
     <button
       className={clsx(
-        "hidden md:flex absolute top-0 z-10 justify-center items-center w-10 h-full hover:opacity-75 focus:opacity-80",
+        "absolute top-0 z-10 hidden h-full w-10 items-center justify-center hover:opacity-75 focus:opacity-80 md:flex",
         position === "left"
           ? "left-0 bg-gradient-to-l"
           : "right-0 bg-gradient-to-r"
@@ -29,7 +29,7 @@ const ChevronButton: FC<{ position: "left" | "right"; onClick(): void }> = ({
   );
 };
 
-const Scroller: FC<ScrollerProps> = ({
+const Scroller: FC<PropsWithChildren<ScrollerProps>> = ({
   column,
   className,
   classNameContent,
@@ -61,7 +61,7 @@ const Scroller: FC<ScrollerProps> = ({
     scroll(true);
   }, [scroll]);
   return (
-    <div className={clsx("relative md:px-10 md:-mx-10", className)}>
+    <div className={clsx("relative md:-mx-10 md:px-10", className)}>
       {posState !== -1 && (
         <ChevronButton position="left" onClick={scrollLeft} />
       )}
@@ -70,16 +70,16 @@ const Scroller: FC<ScrollerProps> = ({
       )}
       <div
         className={clsx(
-          "flex no-scrollbar",
+          "no-scrollbar flex",
           !column
             ? "overflow-x-auto overflow-y-hidden"
-            : "overflow-x-hidden overflow-y-auto"
+            : "overflow-y-auto overflow-x-hidden"
         )}
         ref={ref}
       >
         <div
           className={clsx(
-            "flex flex-shrink-0 items-stretch min-w-0 min-h-0",
+            "flex min-h-0 min-w-0 shrink-0 items-stretch",
             column && "flex-col",
             classNameContent
           )}

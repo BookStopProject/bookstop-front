@@ -1,5 +1,5 @@
-import { Resolver as GraphCacheResolver, UpdateResolver as GraphCacheUpdateResolver, OptimisticMutationResolver as GraphCacheOptimisticMutationResolver, StorageAdapter as GraphCacheStorageAdapter } from '@urql/exchange-graphcache';
-import { IntrospectionData } from '@urql/exchange-graphcache/dist/types/ast';
+import { Resolver as GraphCacheResolver, UpdateResolver as GraphCacheUpdateResolver, OptimisticMutationResolver as GraphCacheOptimisticMutationResolver, StorageAdapter as GraphCacheStorageAdapter, CacheExchangeOpts } from '@urql/exchange-graphcache';
+
 import { DocumentNode } from 'graphql';
 import * as Urql from 'urql';
 export type Maybe<T> = T | null;
@@ -824,7 +824,7 @@ export type GraphCacheUpdaters = {
 };
 
 export type GraphCacheConfig = {
-  schema?: IntrospectionData,
+  schema?: CacheExchangeOpts['schema'],
   updates?: GraphCacheUpdaters,
   keys?: GraphCacheKeysConfig,
   optimistic?: GraphCacheOptimisticUpdaters,

@@ -42,7 +42,7 @@ const UserBookEditorDate: FC<UserBookEditorDateProps> = ({
           max={end}
           className="flex-1"
         />
-        <button className="p-2 mt-4" onClick={() => setStart("")}>
+        <button className="mt-4 p-2" onClick={() => setStart("")}>
           Clear <span className="sr-only">start date</span>
         </button>
       </div>
@@ -55,7 +55,7 @@ const UserBookEditorDate: FC<UserBookEditorDateProps> = ({
           label="Finish reading"
           className="flex-1"
         />
-        <button className="p-2 mt-4" onClick={() => setEnd("")}>
+        <button className="mt-4 p-2" onClick={() => setEnd("")}>
           Clear <span className="sr-only">end date</span>
         </button>
       </div>

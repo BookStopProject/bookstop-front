@@ -51,7 +51,7 @@ const PostWriterContent: FC<{ onDismiss(): void; me: User }> = ({
       />
       <select
         ref={bookIdRef}
-        className="p-2 w-full"
+        className="w-full p-2"
         aria-label="Select a book to mention"
       >
         <option className="text-on-surface-variant" value="">

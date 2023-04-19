@@ -1,4 +1,4 @@
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import { forwardRef } from "react";
@@ -30,16 +30,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     <button
       ref={ref}
       className={clsx(
-        `flex overflow-hidden relative justify-center items-center px-6 space-x-2 h-10 rounded-full focus-visible:ring-2 focus:outline-none`,
+        `relative flex h-10 items-center justify-center space-x-2 overflow-hidden rounded-full px-6 focus:outline-none focus-visible:ring-2`,
         variant === "filled" &&
           !disabled &&
-          "text-on-primary bg-primary after:bg-on-primary",
+          "bg-primary text-on-primary after:bg-on-primary",
         variant === "tonal" &&
           !disabled &&
-          "text-on-secondary-container bg-secondary-container after:bg-on-secondary-container",
-        "after:absolute after:inset-0 after:bg-opacity-0 hover:after:bg-opacity-8 focus:after:bg-opacity-12 after:pointer-events-none",
+          "bg-secondary-container text-on-secondary-container after:bg-on-secondary-container",
+        "after:pointer-events-none after:absolute after:inset-0 after:bg-opacity-0 hover:after:bg-opacity-8 focus:after:bg-opacity-12",
         disabled &&
-          "text-on-surface text-opacity-40 bg-on-surface bg-opacity-12",
+          "bg-on-surface bg-opacity-12 text-on-surface text-opacity-40",
         className
       )}
       onClick={onClick}
@@ -52,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       ) : (
         left
       )}
-      <span className="text-sm font-medium whitespace-nowrap">{children}</span>
+      <span className="whitespace-nowrap text-sm font-medium">{children}</span>
     </button>
   );
 });

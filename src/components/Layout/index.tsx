@@ -1,9 +1,9 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { Footer } from "../Footer";
 import BottomBar, { BottomBarPlaceholder } from "./BottomBar";
 import Header from "./Header";
 
-export const Layout: FC = ({ children }) => {
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Header />

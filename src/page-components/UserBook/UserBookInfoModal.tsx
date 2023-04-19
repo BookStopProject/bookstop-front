@@ -27,7 +27,7 @@ const UserBookInfoModal: FC<UserBookInfoModalProps> = ({
         size={48 * 4}
         value={userBook.id}
       />
-      <p className="mt-8 text-sm leading-tight text-center">
+      <p className="mt-8 text-center text-sm leading-tight">
         Present this QR Code to our representative to trade in your book
       </p>
     </Modal>

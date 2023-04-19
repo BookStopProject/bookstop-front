@@ -1,7 +1,7 @@
 import { BookItem } from "@/components/Book";
 import { Button } from "@/components/Button";
 import { useBookSearchQuery } from "@/graphql/gql.gen";
-import { IconLoader } from "@tabler/icons";
+import { IconLoader } from "@tabler/icons-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -21,17 +21,19 @@ const SearchResult: FC = () => {
   return (
     <div className="container">
       {fetching && !data ? (
-        <div className="flex justify-center p-8 animate-spin">
+        <div className="flex animate-spin justify-center p-8">
           <IconLoader />
         </div>
       ) : data?.bookSearch.length ? (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-4">
+          <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
             {data?.bookSearch.map((book) => (
-              <Link key={book.id} href={`/book/${book.id}`}>
-                <a className="hover:opacity-75 focus:opacity-80 transition-opacity focus:outline-none">
-                  <BookItem book={book} />
-                </a>
+              <Link
+                key={book.id}
+                href={`/book/${book.id}`}
+                className="transition-opacity hover:opacity-75 focus:opacity-80 focus:outline-none"
+              >
+                <BookItem book={book} />
               </Link>
             ))}
           </div>
