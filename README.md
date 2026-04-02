@@ -57,10 +57,6 @@ After building, start the production server:
 npm run start
 ```
 
-### Managed service
-
-For community projects, we offer to set up and manage BookStop instance with no technical knowledge needed. You only need to pay for the deployment cost. For inquiry, contact us via our email read@bookstop.app.
-
 ## Contribution
 
 Please see my [CONTRIBUTING.md](CONTRIBUTING.md).
